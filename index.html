@@ -21,7 +21,7 @@
       z-index: 1; 
     }
 
-    /* --- רקע תצלום אוויר (שכבה מתחת לכל) --- */
+    /* --- רקע תצלום אוויר --- */
     body::before {
         content: '';
         position: fixed;
@@ -39,8 +39,7 @@
         z-index: -1; 
     }
 
-
-    /* --- הגובלים הצדדיים (רחבים עם פס לבן דק) --- */
+    /* --- הגובלים הצדדיים --- */
     body::after {
         content: '';
         position: fixed;
@@ -69,7 +68,6 @@
         z-index: 100;
         box-shadow: 0 0 20px rgba(0,0,0,0.9);
     }
-    
 
     .container {
       max-width: 1200px;
@@ -77,7 +75,7 @@
       padding: 50px 20px;
     }
 
-    /* כותרת ראשית (טקסטואלית) */
+    /* כותרת ראשית */
     .title-frame {
       display: inline-block;
       padding: 10px 20px;
@@ -95,7 +93,7 @@
       text-shadow: 2px 2px 0px #ff6600;
     }
 
-    /* --- עיצוב הלוגו: קצוות רכים ומיקום --- */
+    /* --- לוגו --- */
     .logo-frame {
         display: block; 
         text-align: center;
@@ -112,23 +110,25 @@
         display: block;
     }
 
-
-    /* --- תיבת טקסט (מעוצבת אחרונה) --- */
+    /* --- תיבת טקסט (עם התיקון לטקסט) --- */
     .intro-box {
       background: rgba(26, 26, 26, 0.95); 
       border-radius: 8px;
-      padding: 35px 100px; /* שמירת פדינג אופקי גדול לביטחון */
+      
+      /* שמירת התיקון לטקסט: דחיפה למטה */
+      padding-top: 90px; 
+      padding-left: 50px;
+      padding-right: 50px;
       padding-bottom: 50px; 
+      
       text-align: center;
       max-width: 800px;
       margin: 0 auto 30px auto;
       position: relative;
       z-index: 10;
       
-      /* יצירת פינות חתוכות למראה טכנולוגי */
       clip-path: polygon(0 20%, 100% 5%, 100% 85%, 0% 100%);
       
-      /* מסגרת ניאון כתומה דקה */
       box-shadow: 0 0 10px rgba(255, 102, 0, 0.5), 
                   0 0 5px rgba(255, 102, 0, 0.8),
                   inset 0 0 5px rgba(255, 102, 0, 0.4);
@@ -148,7 +148,7 @@
         font-weight: 700;
     }
     
-    /* --- כפתור הורדה - עיצוב רך וטבעי יותר --- */
+    /* --- כפתור הורדה --- */
     .download-button {
         display: inline-block;
         margin-top: 30px;
@@ -159,11 +159,7 @@
         font-size: 1.1em; 
         text-decoration: none;
         transition: background-color 0.3s, transform 0.1s;
-        
-        /* קצוות רכים ורדיוס גדול יותר */
         border-radius: 20px; 
-        
-        /* צל רך יותר למראה "מרחף" */
         box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
         border: 2px solid #ff6600; 
         letter-spacing: 0.5px;
@@ -175,7 +171,6 @@
         transform: translateY(-2px) scale(1.02); 
         box-shadow: 0 8px 20px rgba(255, 102, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
     }
-    /* --- סוף כפתור הורדה --- */
     
     /* --- גריד --- */
     .content-grid {
@@ -198,7 +193,7 @@
       border: 1px solid #333;
     }
     
-    /* יישור כותרות הכרטיסיות למרכז */
+    /* --- תיקון האייקונים הסופי והקשוח --- */
     .card h2 {
         text-align: center;
         color: #ff6600;
@@ -206,25 +201,27 @@
         margin-top: 0;
         margin-bottom: 15px;
         font-weight: 700;
-        /* משתמשים ב-flex כדי לרכז את האייקון והטקסט יחד */
+        
         display: flex; 
         justify-content: center;
         align-items: center;
-        gap: 8px; /* רווח בין האייקון לטקסט */
+        gap: 10px; 
     }
     
-    /* סגנון מותאם אישית לתמונת האייקון */
     .card h2 img.icon {
-        height: 30px; /* גודל האייקון */
-        width: auto;
+        height: 30px; 
+        width: 30px; /* קביעת רוחב זהה לגובה */
         margin: 0;
-        /* ביטול מוחלט של כל גבול או צללית */
-        border: none;
-        box-shadow: none;
-        outline: none;
+        
+        /* וידוא מוחלט שהאייקון יהיה עגול ושקוף */
+        background: transparent !important; 
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 50% !important; /* זה מה שהופך אותו לעיגול מושלם */
+        padding: 0;
+        object-fit: contain; /* מבטיח שהתמונה לא תתעוות בתוך העיגול */
     }
 
-    /* כרטיס תמונה - ללא שוליים פנימיים וללא כותרת */
     .card.card-image {
         padding: 0;
         overflow: hidden;
@@ -248,7 +245,7 @@
         background-color: #222; 
     }
 
-    /* --- Footer (תחתית) --- */
+    /* --- Footer --- */
     .footer-section {
         text-align: center;
         border-top: 1px solid #ff6600; 
@@ -280,13 +277,11 @@
         border-radius: 8px;
     }
 
-    /* התאמה למובייל */
+    /* מובייל */
     @media (max-width: 900px) {
         body { padding: 0 40px; }
-        /* שינוי הגבולות הצדדיים למובייל */
         body::after { width: 25px; background: #ff6600; }
         .container::before { width: 25px; background: #ff6600; }
-        /* ודא שהרקע נראה טוב במובייל */
         body::before { opacity: 0.7; filter: grayscale(100%) brightness(30%); } 
 
         .title-frame h1 { font-size: 2em; }
@@ -298,7 +293,7 @@
             clip-path: none; 
             border-radius: 8px;
             margin-bottom: 40px;
-            padding: 25px; /* פדינג אחיד במובייל */
+            padding: 25px; 
         }
         .download-button {
              font-size: 1.0em;
@@ -325,14 +320,10 @@
 
     <div class="intro-box">
         <p style="font-size: 1.4em;"> 
-        ברוכים הבאים
+        ברוכים הבאים לסינגל על שם האחד והיחיד
         </p>
         
-        <p style="font-size: 1.4em; margin-top: 5px;">
-        לסינגל על שם האחד והיחיד
-        </p>
-
-        <p style="margin-top: 10px;">
+        <p style="margin-top: 5px;">
         <span style="font-size: 1.1em;"><strong>Mathieu van der Poel</strong></span>
         </p>
 
@@ -361,7 +352,7 @@
     <div class="content-grid">
       
       <div class="card">
-        <h2><img src="strava_icon.png" alt="Strava Icon" class="icon"> Strava Segment</h2>
+        <h2>Strava Segment <img src="strava_icon.png" alt="Strava Icon" class="icon"></h2>
         <iframe src="https://www.strava.com/segments/40540709/embed" allowfullscreen></iframe>
       </div>
 
@@ -374,7 +365,7 @@
       </div>
 
       <div class="card">
-        <h2><img src="youtube_icon.png" alt="YouTube Icon" class="icon"> Video Preview</h2>
+        <h2>Video Preview <img src="youtube_icon.png" alt="YouTube Icon" class="icon"></h2>
         <iframe id="youtube-video" src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
 
