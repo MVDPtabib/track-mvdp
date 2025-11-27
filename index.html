@@ -8,7 +8,6 @@
   <style>
     body {
       margin: 0;
-      /* מרווח צדדי לגובלים */
       padding: 0 120px; 
       font-family: 'Roboto', sans-serif;
       background-color: #0d0d0d;
@@ -110,25 +109,20 @@
         display: block;
     }
 
-    /* --- תיבת טקסט (עם התיקון לטקסט) --- */
+    /* --- תיבת טקסט --- */
     .intro-box {
       background: rgba(26, 26, 26, 0.95); 
       border-radius: 8px;
-      
-      /* שמירת התיקון לטקסט: דחיפה למטה */
       padding-top: 90px; 
       padding-left: 50px;
       padding-right: 50px;
       padding-bottom: 50px; 
-      
       text-align: center;
       max-width: 800px;
       margin: 0 auto 30px auto;
       position: relative;
       z-index: 10;
-      
       clip-path: polygon(0 20%, 100% 5%, 100% 85%, 0% 100%);
-      
       box-shadow: 0 0 10px rgba(255, 102, 0, 0.5), 
                   0 0 5px rgba(255, 102, 0, 0.8),
                   inset 0 0 5px rgba(255, 102, 0, 0.4);
@@ -193,33 +187,41 @@
       border: 1px solid #333;
     }
     
-    /* --- תיקון האייקונים הסופי והקשוח --- */
+    /* עיצוב כותרות עם קישורים */
     .card h2 {
         text-align: center;
-        color: #ff6600;
-        font-size: 1.8em;
         margin-top: 0;
         margin-bottom: 15px;
         font-weight: 700;
-        
+        font-size: 1.8em;
+    }
+
+    /* עיצוב הקישור בתוך הכותרת - זה מה שגורם לו להיראות כמו טקסט רגיל אבל לחיץ */
+    .card h2 a.title-link {
+        text-decoration: none;
+        color: #ff6600; /* צבע הכתום המקורי */
         display: flex; 
         justify-content: center;
         align-items: center;
-        gap: 10px; 
+        gap: 10px;
+        transition: opacity 0.2s ease;
+    }
+
+    /* אפקט מעבר עכבר */
+    .card h2 a.title-link:hover {
+        opacity: 0.8;
     }
     
     .card h2 img.icon {
         height: 30px; 
-        width: 30px; /* קביעת רוחב זהה לגובה */
+        width: 30px;
         margin: 0;
-        
-        /* וידוא מוחלט שהאייקון יהיה עגול ושקוף */
         background: transparent !important; 
         border: none !important;
         box-shadow: none !important;
-        border-radius: 50% !important; /* זה מה שהופך אותו לעיגול מושלם */
+        border-radius: 50% !important;
         padding: 0;
-        object-fit: contain; /* מבטיח שהתמונה לא תתעוות בתוך העיגול */
+        object-fit: contain;
     }
 
     .card.card-image {
@@ -352,7 +354,11 @@
     <div class="content-grid">
       
       <div class="card">
-        <h2>Strava Segment <img src="strava_icon.png" alt="Strava Icon" class="icon"></h2>
+        <h2>
+            <a href="https://www.strava.com/segments/40540709" target="_blank" class="title-link">
+                <img src="strava_icon.png" alt="Strava Icon" class="icon"> Strava Segment
+            </a>
+        </h2>
         <iframe src="https://www.strava.com/segments/40540709/embed" allowfullscreen></iframe>
       </div>
 
@@ -365,7 +371,11 @@
       </div>
 
       <div class="card">
-        <h2>Video Preview <img src="youtube_icon.png" alt="YouTube Icon" class="icon"></h2>
+        <h2>
+            <a href="#" class="title-link">
+                <img src="youtube_icon.png" alt="YouTube Icon" class="icon"> Video Preview
+            </a>
+        </h2>
         <iframe id="youtube-video" src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
 
