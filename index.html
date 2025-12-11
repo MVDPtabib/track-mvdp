@@ -223,6 +223,28 @@
         overflow: hidden;
         border: 2px solid #333; 
     }
+    /* סטייל מותאם לכרטיסייה קטנה של תמונה/סימון */
+    .card.card-marker {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 15px;
+        text-align: center;
+        background: rgba(30, 30, 30, 0.95);
+        border: 1px solid #444;
+    }
+    .card-marker p {
+        font-size: 1.1em;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .card-marker img {
+        height: 50px;
+        width: 50px;
+        object-fit: contain;
+    }
 
     iframe {
       width: 100%;
@@ -324,7 +346,7 @@
 
         <p style="font-size: 1.25em; font-weight: 400; color: #fff; line-height: 1.4; margin-top: 25px;">
             זהו מסלול <strong>XC מהיר</strong> ומדויק.<br>
-            הקפה אחת באורך <strong>2.8 ק"מ</strong>, עם טיפוס מצטבר של <strong>60 מטר</strong>.
+            הקפה אחת באורך <strong>3.1 ק"מ</strong>, עם טיפוס מצטבר של <strong>95 מטר</strong>.
         </p>
 
         <p style="font-size: 1.35em; font-weight: 700; color: #ff6600; margin-top: 15px;">
@@ -332,7 +354,7 @@
         </p>
 
         <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
-            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי הענפים והסימונים <strong>הכתומים 🟧</strong>.
+            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי <strong>החצים הכחולים 🟦</strong>.
         </p>
         
         <a href="MVDP Single-Track.gpx" download class="download-button">
@@ -370,6 +392,16 @@
             </a>
         </h2>
         <iframe id="youtube-video" src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
+      </div>
+
+      <div class="card card-marker">
+        <p>השביל מסומן על ידי <br> **חצים כחולים**</p>
+        <img src="bluearrow.png" alt="חץ כחול לסימון" style="height: 60px; width: auto; margin-right: 15px;">
+      </div>
+
+      <div class="card card-marker">
+        <p>וגם על ידי <br> **ענפים**</p>
+        <img src="branch.png" alt="ענפים לסימון" style="height: 60px; width: auto; margin-right: 15px;">
       </div>
 
     </div>
