@@ -37,12 +37,36 @@
 
     .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
 
+    /* הכותרת המרכזית שביקשת */
+    .main-title {
+        font-size: 5em;
+        font-weight: 900;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        background: linear-gradient(45deg, #ff6600, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 5px;
+        filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.8));
+    }
+
     .banner-container {
         width: 100%;
         margin-bottom: 30px;
         text-align: center;
     }
-    .banner-logo { width: auto; max-width: 75%; height: auto; max-height: 300px; display: block; margin: 0 auto; object-fit: contain; }
+    .banner-logo { 
+        width: 100%; 
+        max-width: 1000px; 
+        height: auto; 
+        max-height: 380px; 
+        display: block; 
+        margin: 0 auto; 
+        object-fit: contain;
+        mask-image: radial-gradient(circle, black 75%, transparent 100%);
+        -webkit-mask-image: radial-gradient(circle, black 75%, transparent 100%);
+    }
 
     .intro-box {
       background: rgba(26, 26, 26, 0.95); border-radius: 8px;
@@ -58,12 +82,12 @@
     .download-button {
         display: inline-block; margin-top: 30px; padding: 12px 25px; 
         background-color: #ff6600; color: #0d0d0d; font-weight: 900;
-        text-decoration: none; border-radius: 20px; transition: 0.3s ease;
+        text-decoration: none; border-radius: 20px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
     }
     .download-button:hover { 
         background-color: #ffffff; 
-        transform: scale(1.1); /* הגדלה ב-10% במעבר עכבר */
+        transform: scale(1.15); 
     }
 
     .content-grid {
@@ -96,12 +120,12 @@
     .card h2 { color: #ff6600; text-align: center; margin: 0; font-weight: 900; }
     iframe { width: 100%; flex-grow: 1; border-radius: 8px; border: none; }
 
-    /* עיצוב לינק אימייל */
     .email-link { color: #ff6600; text-decoration: none; font-weight: 700; transition: 0.3s; }
     .email-link:hover { color: #fff; text-decoration: underline; }
 
     @media (max-width: 900px) {
         body { padding: 0 40px; }
+        .main-title { font-size: 2.5em; }
         .content-grid { grid-template-columns: 1fr; }
         .intro-box { padding: 40px 20px; clip-path: none; }
     }
@@ -110,6 +134,8 @@
 <body>
   <div class="container">
     
+    <h1 class="main-title">MVDP SINGLE-TRACK</h1>
+
     <div class="banner-container">
         <img src="new_logo.png" alt="MVDP Banner" class="banner-logo">
     </div>
@@ -132,7 +158,6 @@
     </div>
     
     <div class="content-grid">
-      
       <div class="card card-marker">
         <p>השביל מסומן על ידי <br> <strong>חצים כחולים</strong></p>
         <img src="bluearrow.png" alt="חץ כחול">
@@ -175,24 +200,19 @@
         </div>
         <iframe src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
-
     </div>
 
     <div style="text-align: center; opacity: 0.9; padding: 40px; border-top: 1px solid #ff6600; margin-top: 50px; background: rgba(20, 20, 20, 0.8); border-radius: 12px;">
-        
         <p style="font-size: 1.1em; color: #e0e0e0; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
             <a href="mailto:van.der0nothing@gmail.com" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Email" style="height: 25px;">
                 <span class="email-link">רכבתם בסינגל? יש לכם הערות? מוזמנים לשלוח מייל לכתובת van.der0nothing@gmail.com</span>
             </a>
         </p>
-
         <p style="font-size: 1.2em; color: #ff6600; font-weight: 700; margin-bottom: 10px;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
         <p style="font-size: 1em; color: #cccccc; margin-bottom: 20px;">מה שנכנס איתנו ליער, חוזר איתנו הביתה. בואו נשמור על הסינגלים שלנו ירוקים.</p>
-        
         <p style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px;">
             <strong>הבהרה משפטית:</strong> הרכיבה במסלול הינה באחריות הרוכב/ת בלבד. יש להשתמש בציוד מגן מתאים ולהישמע להוראות הבטיחות. 
-            המידע באתר זה ניתן כשירות לקהילה ואינו מהווה המלצה או תחליף לשיקול דעת מקצועי.
         </p>
     </div>
   </div>
