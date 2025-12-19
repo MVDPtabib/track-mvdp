@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MVDP Single-Track Rosh Haayin</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
+    /* הגדרות כלליות ורקע */
     body {
       margin: 0;
-      /* מרווח צדדי לגובלים */
       padding: 0 120px; 
       font-family: 'Roboto', sans-serif;
       background-color: #0d0d0d;
       color: #e0e0e0;
-      direction: rtl;
       min-height: 100vh;
       padding-bottom: 50px; 
       overflow-x: hidden;
@@ -23,402 +22,163 @@
 
     body::before {
         content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background-image: url('map.png'); 
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        opacity: 0.5; 
-        filter: grayscale(100%) brightness(50%); 
-        z-index: -1; 
+        background-size: cover; background-position: center; background-repeat: no-repeat;
+        background-attachment: fixed; opacity: 0.4; filter: grayscale(100%) brightness(40%); z-index: -1; 
     }
 
-    body::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        width: 90px;
-        background: linear-gradient(to right, 
-            #ff6600 0%, #ff6600 47%, 
-            #ffffff 47%, #ffffff 53%, 
-            #ff6600 53%, #ff6600 100%);
-        z-index: 100;
-        box-shadow: 0 0 20px rgba(0,0,0,0.9);
+    /* פסי קישוט כתום-לבן בצדדים */
+    body::after, .container::before {
+        content: ''; position: fixed; top: 0; bottom: 0; width: 90px;
+        background: linear-gradient(to right, #ff6600 0%, #ff6600 47%, #ffffff 47%, #ffffff 53%, #ff6600 53%, #ff6600 100%);
+        z-index: 100; box-shadow: 0 0 20px rgba(0,0,0,0.9);
     }
     body::after { right: 0; }
-    .container::before { 
-        content: '';
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 90px;
-        background: linear-gradient(to right, 
-            #ff6600 0%, #ff6600 47%, 
-            #ffffff 47%, #ffffff 53%, 
-            #ff6600 53%, #ff6600 100%);
-        z-index: 100;
-        box-shadow: 0 0 20px rgba(0,0,0,0.9);
-    }
+    .container::before { left: 0; position: fixed; top:0; bottom:0; z-index:100; content:'';}
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 50px 20px;
-    }
+    .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
 
-    .title-frame {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-bottom: 20px; 
-      border-bottom: 2px solid #ff6600;
-    }
-
-    .title-frame h1 {
-      font-size: 3.5em;
-      font-weight: 900;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin: 0;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 0px #ff6600;
-    }
-
-    .logo-frame {
-        display: block; 
-        text-align: center;
-        margin: 20px auto 40px auto;
-        max-width: 400px; 
-        overflow: hidden; 
-        border-radius: 15px; 
-        box-shadow: 0 0 15px rgba(255, 102, 0, 0.4); 
-    }
-    
-    .logo-frame img {
+    /* לוגו באנר PNG */
+    .banner-container {
         width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .intro-box {
-      background: rgba(26, 26, 26, 0.95); 
-      border-radius: 8px;
-      padding: 40px 100px; 
-      padding-bottom: 50px; 
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-      position: relative;
-      z-index: 10;
-      padding-top: 90px; 
-      clip-path: polygon(0 20%, 100% 5%, 100% 85%, 0% 100%);
-      box-shadow: 0 0 10px rgba(255, 102, 0, 0.5), 
-                  0 0 5px rgba(255, 102, 0, 0.8),
-                  inset 0 0 5px rgba(255, 102, 0, 0.4);
-      border: 1px solid rgba(255, 102, 0, 0.3);
-    }
-
-    .intro-box p {
-        font-size: 1.5em;
-        font-weight: 300;
-        line-height: 1.8;
-        margin: 0;
-        color: #cccccc;
-    }
-
-    .intro-box strong {
-        color: #ff6600;
-        font-weight: 700;
-    }
-    
-    .download-button {
-        display: inline-block;
-        margin-top: 30px;
-        padding: 10px 20px; 
-        background-color: #ff6600;
-        color: #0d0d0d;
-        font-weight: 900;
-        font-size: 1.1em; 
-        text-decoration: none;
-        transition: background-color 0.3s, transform 0.1s;
-        border-radius: 20px; 
-        box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
-        border: 2px solid #ff6600; 
-        letter-spacing: 0.5px;
-    }
-
-    .download-button:hover {
-        background-color: #cc5200;
-        color: #ffffff;
-        transform: translateY(-2px) scale(1.02); 
-        box-shadow: 0 8px 20px rgba(255, 102, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 40px;
-      justify-content: center;
-      margin-bottom: 80px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .card {
-      background-color: rgba(22, 22, 22, 0.95); 
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #333;
-    }
-    
-    .card h2 {
-        text-align: center;
-        color: #ff6600;
-        font-size: 1.8em;
-        margin-top: 0;
-        margin-bottom: 15px;
-        font-weight: 700;
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        gap: 10px; 
-    }
-
-    .card h2 a.title-link {
-        text-decoration: none;
-        color: #ff6600;
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        transition: opacity 0.2s ease;
-    }
-
-    .card h2 a.title-link:hover {
-        opacity: 0.8;
-    }
-    
-    .card h2 img.icon {
-        height: 30px; 
-        width: 30px;
-        margin: 0;
-        background: transparent !important; 
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 50% !important;
-        padding: 0;
-        object-fit: contain;
-    }
-
-    .card.card-image {
-        padding: 0;
+        margin-bottom: 40px;
+        border-radius: 15px;
         overflow: hidden;
-        border: 2px solid #333; 
-    }
-    /* סטייל מותאם לכרטיסייה קטנה של תמונה/סימון */
-    .card.card-marker {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        padding: 15px;
         text-align: center;
-        background: rgba(30, 30, 30, 0.95);
-        border: 1px solid #444;
     }
-    .card-marker p {
-        font-size: 1.1em;
-        font-weight: 700;
-        color: #ffffff;
-        margin: 0;
-        line-height: 1.4;
-    }
-    .card-marker img {
-        height: 50px;
-        width: 50px;
-        object-fit: contain;
+    .banner-logo { width: 100%; height: auto; display: block; max-height: 400px; object-fit: contain; }
+
+    /* תיבת פתיחה */
+    .intro-box {
+      background: rgba(26, 26, 26, 0.95); border-radius: 8px;
+      padding: 40px 60px 50px; text-align: center; max-width: 800px;
+      margin: 0 auto 40px auto; position: relative; z-index: 10;
+      box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+      border: 1px solid rgba(255, 102, 0, 0.2);
     }
 
-    iframe {
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      min-height: 350px;
-      flex-grow: 1;
+    .download-button {
+        display: inline-block; margin-top: 25px; padding: 12px 25px; 
+        background-color: #ff6600; color: #0d0d0d; font-weight: 900;
+        text-decoration: none; border-radius: 30px; transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
+    }
+    .download-button:hover { background-color: #ffffff; transform: scale(1.05); }
+
+    /* גריד התוכן */
+    .content-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 30px; margin-bottom: 50px; position: relative; z-index: 10;
     }
 
-    .img-cover {
-        width: 100%;
-        height: 100%;
-        min-height: 400px;
-        object-fit: cover;
-        display: block;
-        background-color: #222; 
-    }
+    .card { background-color: rgba(22, 22, 22, 0.95); border-radius: 12px; padding: 20px; border: 1px solid #333; }
+    
+    /* סימונים */
+    .card-marker { display: flex; align-items: center; justify-content: space-around; padding: 20px; background: rgba(30, 30, 30, 0.95); }
+    .card-marker p { font-size: 1.2em; font-weight: 700; margin: 0; }
 
-    .footer-section {
-        text-align: center;
-        border-top: 1px solid #ff6600; 
-        padding-top: 40px;
-        padding-bottom: 60px;
-        margin-top: 50px;
-        background-color: rgba(13, 13, 13, 0.95); 
-        position: relative;
-        z-index: 10;
+    /* גלריות תמונות */
+    .gallery-card { position: relative; height: 450px; overflow: hidden; padding: 0; border: 2px solid #333; cursor: pointer; }
+    .slideshow { width: 100%; height: 100%; position: relative; }
+    .slide-img {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out, transform 0.8s ease;
     }
+    .slide-img.active { opacity: 1; }
+    .gallery-card:hover .slide-img.active { transform: scale(1.1); }
 
-    .forest-msg {
-        font-size: 1.3em;
-        color: #ffffff;
-        margin-bottom: 25px;
-        font-weight: bold;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
+    .card h2 { color: #ff6600; text-align: center; margin-bottom: 20px; font-weight: 900; }
+    iframe { width: 100%; border-radius: 8px; min-height: 400px; border: none; }
 
-    .legal-disclaimer {
-        font-size: 0.9em;
-        color: #ffffff;
-        opacity: 1;
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.6;
-        border: 1px solid #333;
-        padding: 15px;
-        border-radius: 8px;
-    }
-
+    /* התאמה למובייל */
     @media (max-width: 900px) {
-        body { padding: 0 40px; }
-        body::after { width: 25px; background: #ff6600; }
-        .container::before { width: 25px; background: #ff6600; }
-        body::before { opacity: 0.7; filter: grayscale(100%) brightness(30%); } 
-
-        .title-frame h1 { font-size: 2em; }
-        .logo-frame img { max-width: 280px; }
+        body { padding: 0 30px; }
+        body::after, .container::before { width: 15px; }
         .content-grid { grid-template-columns: 1fr; }
-        .img-cover { min-height: 250px; }
-        .legal-disclaimer { font-size: 0.8em; }
-        .intro-box {
-            clip-path: none; 
-            border-radius: 8px;
-            margin-bottom: 40px;
-            padding: 25px; 
-            padding-top: 40px;
-        }
-        .download-button {
-             font-size: 1.0em;
-             padding: 8px 15px;
-             border-radius: 15px;
-        }
+        .gallery-card { height: 300px; }
+        .intro-box { padding: 30px 20px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     
-    <div style="text-align: center;">
-        <div class="title-frame">
-            <h1>MVDP Single-Track<br><span style="color:#ff6600; font-size:0.6em;">Rosh Haayin</span></h1>
-        </div>
-    </div>
-
-    <div style="text-align: center;">
-        <div class="logo-frame">
-            <img src="MVDP ST LOGO.png" alt="MVDP Single-Track Rosh Haayin Logo">
-        </div>
+    <div class="banner-container">
+        <img src="new_logo.png" alt="MVDP Single-Track Logo" class="banner-logo">
     </div>
 
     <div class="intro-box">
-        <p style="font-size: 1.4em;"> 
-        ברוכים הבאים לסינגל על שם האחד והיחיד
-        </p>
-        
-        <p style="margin-top: 5px;">
-        <span style="font-size: 1.1em;"><strong>Mathieu van der Poel</strong></span>
-        </p>
-
-        <p style="font-size: 1.25em; font-weight: 400; color: #fff; line-height: 1.4; margin-top: 25px;">
-            זהו מסלול <strong>XC מהיר</strong> ומדויק.<br>
-            הקפה אחת באורך <strong>3.1 ק"מ</strong>, עם טיפוס מצטבר של <strong>95 מטר</strong>.
-        </p>
-
-        <p style="font-size: 1.35em; font-weight: 700; color: #ff6600; margin-top: 15px;">
-            <strong>יופי של מסלול XCO לאימונים!</strong> ⏱️
-        </p>
-
-        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
-            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי <strong>החצים הכחולים 🟦</strong>.
-        </p>
-        
-        <a href="MVDP Single-Track.gpx" download class="download-button">
-            ⬇️ להורדת קובץ הניווט (GPX)
-        </a>
-
-        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 0;">
-            תהנו! 🚵‍♂️
-        </p>
+        <h2 style="color: #fff; margin-top: 0;">סינגל Mathieu van der Poel</h2>
+        <p style="font-size: 1.3em;">ברוכים הבאים למסלול ה-XC המהיר של ראש העין.</p>
+        <p><strong>אורך:</strong> 3.1 ק"מ | <strong>טיפוס:</strong> 95 מטר</p>
+        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ ניווט GPX</a>
     </div>
     
     <div class="content-grid">
       
       <div class="card card-marker">
-        <p>השביל מסומן על ידי <br> <strong>חצים כחולים</strong></p>
-        <img src="bluearrow.png" alt="חץ כחול לסימון" style="height: 60px; width: auto; margin-right: 15px;">
+        <p>עקבו אחרי ה-<strong>חצים הכחולים</strong></p>
+        <img src="bluearrow.png" alt="חץ כחול" style="height: 60px;">
       </div>
-
+      
       <div class="card card-marker">
-        <p>וגם על ידי <br> <strong>ענפים</strong></p>
-        <img src="branch.png" alt="תמונה חסרה: נא להעלות branch.png" style="height: 60px; width: auto; margin-right: 15px;">
+        <p>וגם אחרי סימוני ה-<strong>ענפים</strong></p>
+        <img src="branch.png" alt="סימון ענפים" style="height: 60px;">
+      </div>
+
+      <div class="card gallery-card" id="track-gallery">
+        <div class="slideshow">
+            <img src="ga1.jpg" class="slide-img active" alt="Track 1">
+            <img src="ga2.jpg" class="slide-img" alt="Track 2">
+            <img src="ga3.jpg" class="slide-img" alt="Track 3">
+            <img src="ga4.jpg" class="slide-img" alt="Track 4">
+            <img src="ga5.jpg" class="slide-img" alt="Track 5">
+        </div>
+      </div>
+
+      <div class="card gallery-card" id="mvdp-gallery">
+        <div class="slideshow">
+            <img src="https://escapecollective.com/content/images/wordpress/2025/01/CORVOS_00035811-002-world-champs-2023-mvdp.jpg" class="slide-img active" alt="MVDP 1">
+            <img src="https://cdn.mos.cms.futurecdn.net/Erp5bYQfSVBHaVzYUH4WAc-970-80.jpg.webp" class="slide-img" alt="MVDP 2">
+        </div>
       </div>
 
       <div class="card">
-        <h2>
-            <a href="https://www.strava.com/segments/40579951" target="_blank" class="title-link">
-                <img src="strava_icon.png" alt="Strava Icon" class="icon"> Strava Segment
-            </a>
-        </h2>
-        <iframe src="https://www.strava.com/segments/40579951/embed" allowfullscreen></iframe>
-      </div>
-
-      <div class="card card-image">
-        <img class="img-cover" src="https://escapecollective.com/content/images/wordpress/2025/01/CORVOS_00035811-002-world-champs-2023-mvdp.jpg" alt="Mathieu van der Poel" onerror="this.style.display='none';">
-      </div>
-
-      <div class="card card-image">
-        <img class="img-cover" src="https://cdn.mos.cms.futurecdn.net/Erp5bYQfSVBHaVzYUH4WAc-970-80.jpg.webp" alt="Mountain Biking Action">
+        <h2>מקטע Strava</h2>
+        <iframe src="https://www.strava.com/segments/40579951/embed"></iframe>
       </div>
 
       <div class="card">
-        <h2>
-            <a href="#" class="title-link">
-                <img src="youtube_icon.png" alt="YouTube Icon" class="icon"> Video Preview
-            </a>
-        </h2>
-        <iframe id="youtube-video" src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
+        <h2>תצוגת מסלול בוידאו</h2>
+        <iframe src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
 
     </div>
 
-    <div class="footer-section">
-        <div class="forest-msg">
-            רוכבים, נהנים ושומרים על היער נקי – מה שנכנס איתנו ליער, חוזר איתנו הביתה. 🌳
-        </div>
-        <div class="legal-disclaimer">
-            <strong>הבהרה משפטית:</strong><br>
-            השימוש במידע המופיע באתר זה והרכיבה במסלול הינם על אחריות הרוכב/ת בלבד.<br>
-            אין ליוצרי האתר, למסמני המסלול או למי מטעמם כל אחריות, ישירה או עקיפה, לנזק גוף, לרכוש או לכל נזק אחר שעלול להיגרם עקב השימוש במסלול.<br>
-            הרכיבה מחייבת שיקול דעת, יכולת טכנית מתאימה וציוד מגן מלא.
-        </div>
+    <div style="text-align: center; opacity: 0.8; padding: 30px; border-top: 1px solid #ff6600;">
+        <p style="font-size: 1.1em;">🌳 רוכבים בטבע? שמרו עליו נקי. מה שהבאתם ליער - חוזר איתכם הביתה.</p>
+        <p style="font-size: 0.85em;">הרכיבה במסלול הינה באחריות הרוכב/ת בלבד.</p>
     </div>
-
   </div>
+
+  <script>
+    function startGallery(id, time) {
+        const container = document.getElementById(id);
+        const images = container.querySelectorAll('.slide-img');
+        let index = 0;
+
+        setInterval(() => {
+            images[index].classList.remove('active');
+            index = (index + 1) % images.length;
+            images[index].classList.add('active');
+        }, time);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        startGallery('track-gallery', 3500); // תמונות מסלול כל 3.5 שניות
+        startGallery('mvdp-gallery', 5000);  // תמונות MVDP כל 5 שניות
+    });
+  </script>
 </body>
 </html>
