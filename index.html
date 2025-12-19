@@ -6,7 +6,6 @@
   <title>MVDP Single-Track Rosh Haayin</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
-    /* הגדרות כלליות ורקע */
     body {
       margin: 0;
       padding: 0 120px; 
@@ -25,10 +24,9 @@
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background-image: url('map.png'); 
         background-size: cover; background-position: center; background-repeat: no-repeat;
-        background-attachment: fixed; opacity: 0.4; filter: grayscale(100%) brightness(40%); z-index: -1; 
+        background-attachment: fixed; opacity: 0.5; filter: grayscale(100%) brightness(50%); z-index: -1; 
     }
 
-    /* פסי קישוט כתום-לבן בצדדים */
     body::after, .container::before {
         content: ''; position: fixed; top: 0; bottom: 0; width: 90px;
         background: linear-gradient(to right, #ff6600 0%, #ff6600 47%, #ffffff 47%, #ffffff 53%, #ff6600 53%, #ff6600 100%);
@@ -39,65 +37,73 @@
 
     .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
 
-    /* לוגו באנר PNG */
     .banner-container {
         width: 100%;
-        margin-bottom: 40px;
-        border-radius: 15px;
-        overflow: hidden;
+        margin-bottom: 30px;
         text-align: center;
     }
-    .banner-logo { width: 100%; height: auto; display: block; max-height: 400px; object-fit: contain; }
+    .banner-logo { width: auto; max-width: 75%; height: auto; max-height: 300px; display: block; margin: 0 auto; object-fit: contain; }
 
-    /* תיבת פתיחה */
     .intro-box {
       background: rgba(26, 26, 26, 0.95); border-radius: 8px;
-      padding: 40px 60px 50px; text-align: center; max-width: 800px;
-      margin: 0 auto 40px auto; position: relative; z-index: 10;
-      box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
-      border: 1px solid rgba(255, 102, 0, 0.2);
+      padding: 40px 100px 50px; text-align: center; max-width: 800px;
+      margin: 0 auto 40px auto; position: relative; z-index: 10; padding-top: 90px; 
+      clip-path: polygon(0 20%, 100% 5%, 100% 85%, 0% 100%);
+      box-shadow: 0 0 15px rgba(255, 102, 0, 0.4); border: 1px solid rgba(255, 102, 0, 0.3);
     }
+    .intro-box p { font-size: 1.5em; font-weight: 300; line-height: 1.8; margin: 0; color: #cccccc; }
+    .intro-box strong { color: #ff6600; font-weight: 700; }
 
+    /* כפתור GPX עם אפקט הגדלה */
     .download-button {
-        display: inline-block; margin-top: 25px; padding: 12px 25px; 
+        display: inline-block; margin-top: 30px; padding: 12px 25px; 
         background-color: #ff6600; color: #0d0d0d; font-weight: 900;
-        text-decoration: none; border-radius: 30px; transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4);
+        text-decoration: none; border-radius: 20px; transition: 0.3s ease;
+        box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
     }
-    .download-button:hover { background-color: #ffffff; transform: scale(1.05); }
+    .download-button:hover { 
+        background-color: #ffffff; 
+        transform: scale(1.1); /* הגדלה ב-10% במעבר עכבר */
+    }
 
-    /* גריד התוכן */
     .content-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 30px; margin-bottom: 50px; position: relative; z-index: 10;
+      gap: 35px; margin-bottom: 80px; position: relative; z-index: 10;
     }
 
-    .card { background-color: rgba(22, 22, 22, 0.95); border-radius: 12px; padding: 20px; border: 1px solid #333; }
-    
-    /* סימונים */
-    .card-marker { display: flex; align-items: center; justify-content: space-around; padding: 20px; background: rgba(30, 30, 30, 0.95); }
-    .card-marker p { font-size: 1.2em; font-weight: 700; margin: 0; }
+    .card { 
+        background-color: rgba(22, 22, 22, 0.95); 
+        border-radius: 12px; padding: 25px; border: 1px solid #333; 
+        height: 450px; box-sizing: border-box; display: flex; flex-direction: column;
+    }
 
-    /* גלריות תמונות */
-    .gallery-card { position: relative; height: 450px; overflow: hidden; padding: 0; border: 2px solid #333; cursor: pointer; }
+    .card-marker {
+        display: flex; flex-direction: row !important; align-items: center; justify-content: space-around;
+        height: auto !important; padding: 20px; background: rgba(30, 30, 30, 0.95);
+    }
+    .card-marker p { margin: 0; font-size: 1.2em; font-weight: 700; }
+    .card-marker img { height: 65px; width: auto; object-fit: contain; }
+
+    .header-with-icon { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
+    .round-icon { width: 45px; height: 45px; border-radius: 50%; background-color: #fff; padding: 5px; object-fit: contain; }
+
+    .gallery-card { padding: 0; overflow: hidden; border: 2px solid #333; cursor: pointer; }
     .slideshow { width: 100%; height: 100%; position: relative; }
-    .slide-img {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out, transform 0.8s ease;
-    }
+    .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out, transform 0.8s ease; }
     .slide-img.active { opacity: 1; }
     .gallery-card:hover .slide-img.active { transform: scale(1.1); }
 
-    .card h2 { color: #ff6600; text-align: center; margin-bottom: 20px; font-weight: 900; }
-    iframe { width: 100%; border-radius: 8px; min-height: 400px; border: none; }
+    .card h2 { color: #ff6600; text-align: center; margin: 0; font-weight: 900; }
+    iframe { width: 100%; flex-grow: 1; border-radius: 8px; border: none; }
 
-    /* התאמה למובייל */
+    /* עיצוב לינק אימייל */
+    .email-link { color: #ff6600; text-decoration: none; font-weight: 700; transition: 0.3s; }
+    .email-link:hover { color: #fff; text-decoration: underline; }
+
     @media (max-width: 900px) {
-        body { padding: 0 30px; }
-        body::after, .container::before { width: 15px; }
+        body { padding: 0 40px; }
         .content-grid { grid-template-columns: 1fr; }
-        .gallery-card { height: 300px; }
-        .intro-box { padding: 30px 20px; }
+        .intro-box { padding: 40px 20px; clip-path: none; }
     }
   </style>
 </head>
@@ -105,79 +111,107 @@
   <div class="container">
     
     <div class="banner-container">
-        <img src="new_logo.png" alt="MVDP Single-Track Logo" class="banner-logo">
+        <img src="new_logo.png" alt="MVDP Banner" class="banner-logo">
     </div>
 
     <div class="intro-box">
-        <h2 style="color: #fff; margin-top: 0;">סינגל Mathieu van der Poel</h2>
-        <p style="font-size: 1.3em;">ברוכים הבאים למסלול ה-XC המהיר של ראש העין.</p>
-        <p><strong>אורך:</strong> 3.1 ק"מ | <strong>טיפוס:</strong> 95 מטר</p>
-        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ ניווט GPX</a>
+        <p style="font-size: 1.4em;">ברוכים הבאים לסינגל על שם האחד והיחיד</p>
+        <p style="margin-top: 5px;"><span style="font-size: 1.1em;"><strong>Mathieu van der Poel</strong></span></p>
+        <p style="font-size: 1.25em; font-weight: 400; color: #fff; line-height: 1.4; margin-top: 25px;">
+            זהו מסלול <strong>XC מהיר</strong> ומדויק.<br>
+            הקפה אחת באורך <strong>3.1 ק"מ</strong>, עם טיפוס מצטבר של <strong>95 מטר</strong>.
+        </p>
+        <p style="font-size: 1.35em; font-weight: 700; color: #ff6600; margin-top: 15px;">
+            <strong>יופי של מסלול XCO לאימונים!</strong> ⏱️
+        </p>
+        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
+            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי <strong>החצים הכחולים 🟦</strong>.
+        </p>
+        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ להורדת קובץ הניווט (GPX)</a>
+        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 0;">תהנו! 🚵‍♂️</p>
     </div>
     
     <div class="content-grid">
       
       <div class="card card-marker">
-        <p>עקבו אחרי ה-<strong>חצים הכחולים</strong></p>
-        <img src="bluearrow.png" alt="חץ כחול" style="height: 60px;">
+        <p>השביל מסומן על ידי <br> <strong>חצים כחולים</strong></p>
+        <img src="bluearrow.png" alt="חץ כחול">
       </div>
-      
+
       <div class="card card-marker">
-        <p>וגם אחרי סימוני ה-<strong>ענפים</strong></p>
-        <img src="branch.png" alt="סימון ענפים" style="height: 60px;">
+        <p>וגם על ידי <br> <strong>ענפים</strong></p>
+        <img src="Branch_marking.png" alt="סימון ענפים" style="border-radius: 8px;">
+      </div>
+
+      <div class="card">
+        <div class="header-with-icon">
+            <img src="strava_icon.png" class="round-icon" alt="Strava Icon">
+            <h2>Strava Segment</h2>
+        </div>
+        <iframe src="https://www.strava.com/segments/40579951/embed"></iframe>
       </div>
 
       <div class="card gallery-card" id="track-gallery">
         <div class="slideshow">
-            <img src="ga1.jpg" class="slide-img active" alt="Track 1">
-            <img src="ga2.jpg" class="slide-img" alt="Track 2">
-            <img src="ga3.jpg" class="slide-img" alt="Track 3">
-            <img src="ga4.jpg" class="slide-img" alt="Track 4">
-            <img src="ga5.jpg" class="slide-img" alt="Track 5">
+            <img src="ga1.jpeg" class="slide-img active">
+            <img src="ga2.jpeg" class="slide-img">
+            <img src="ga3.jpeg" class="slide-img">
+            <img src="ga4.jpeg" class="slide-img">
+            <img src="ga5.jpeg" class="slide-img">
         </div>
       </div>
 
       <div class="card gallery-card" id="mvdp-gallery">
         <div class="slideshow">
-            <img src="https://escapecollective.com/content/images/wordpress/2025/01/CORVOS_00035811-002-world-champs-2023-mvdp.jpg" class="slide-img active" alt="MVDP 1">
-            <img src="https://cdn.mos.cms.futurecdn.net/Erp5bYQfSVBHaVzYUH4WAc-970-80.jpg.webp" class="slide-img" alt="MVDP 2">
+            <img src="https://escapecollective.com/content/images/wordpress/2025/01/CORVOS_00035811-002-world-champs-2023-mvdp.jpg" class="slide-img active">
+            <img src="https://cdn.mos.cms.futurecdn.net/Erp5bYQfSVBHaVzYUH4WAc-970-80.jpg.webp" class="slide-img">
         </div>
       </div>
 
       <div class="card">
-        <h2>מקטע Strava</h2>
-        <iframe src="https://www.strava.com/segments/40579951/embed"></iframe>
-      </div>
-
-      <div class="card">
-        <h2>תצוגת מסלול בוידאו</h2>
+        <div class="header-with-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-icon" alt="YouTube Icon">
+            <h2>Video Preview</h2>
+        </div>
         <iframe src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
 
     </div>
 
-    <div style="text-align: center; opacity: 0.8; padding: 30px; border-top: 1px solid #ff6600;">
-        <p style="font-size: 1.1em;">🌳 רוכבים בטבע? שמרו עליו נקי. מה שהבאתם ליער - חוזר איתכם הביתה.</p>
-        <p style="font-size: 0.85em;">הרכיבה במסלול הינה באחריות הרוכב/ת בלבד.</p>
+    <div style="text-align: center; opacity: 0.9; padding: 40px; border-top: 1px solid #ff6600; margin-top: 50px; background: rgba(20, 20, 20, 0.8); border-radius: 12px;">
+        
+        <p style="font-size: 1.1em; color: #e0e0e0; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <a href="mailto:van.der0nothing@gmail.com" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Email" style="height: 25px;">
+                <span class="email-link">רכבתם בסינגל? יש לכם הערות? מוזמנים לשלוח מייל לכתובת van.der0nothing@gmail.com</span>
+            </a>
+        </p>
+
+        <p style="font-size: 1.2em; color: #ff6600; font-weight: 700; margin-bottom: 10px;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
+        <p style="font-size: 1em; color: #cccccc; margin-bottom: 20px;">מה שנכנס איתנו ליער, חוזר איתנו הביתה. בואו נשמור על הסינגלים שלנו ירוקים.</p>
+        
+        <p style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px;">
+            <strong>הבהרה משפטית:</strong> הרכיבה במסלול הינה באחריות הרוכב/ת בלבד. יש להשתמש בציוד מגן מתאים ולהישמע להוראות הבטיחות. 
+            המידע באתר זה ניתן כשירות לקהילה ואינו מהווה המלצה או תחליף לשיקול דעת מקצועי.
+        </p>
     </div>
   </div>
 
   <script>
-    function startGallery(id, time) {
-        const container = document.getElementById(id);
-        const images = container.querySelectorAll('.slide-img');
-        let index = 0;
-
+    function setupGallery(galleryId, intervalTime) {
+        const gallery = document.getElementById(galleryId);
+        if (!gallery) return;
+        const slides = gallery.querySelectorAll('.slide-img');
+        let current = 0;
         setInterval(() => {
-            images[index].classList.remove('active');
-            index = (index + 1) % images.length;
-            images[index].classList.add('active');
-        }, time);
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, intervalTime);
     }
-
     document.addEventListener('DOMContentLoaded', () => {
-        startGallery('track-gallery', 3500); // תמונות מסלול כל 3.5 שניות
-        startGallery('mvdp-gallery', 5000);  // תמונות MVDP כל 5 שניות
+        setupGallery('track-gallery', 3500);
+        setupGallery('mvdp-gallery', 5000);
     });
   </script>
 </body>
