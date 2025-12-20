@@ -27,6 +27,7 @@
         background-attachment: fixed; opacity: 0.5; filter: grayscale(100%) brightness(50%); z-index: -1; 
     }
 
+    /* פסי צד */
     body::after, .container::before {
         content: ''; position: fixed; top: 0; bottom: 0; width: 90px;
         background: linear-gradient(to right, #ff6600 0%, #ff6600 47%, #ffffff 47%, #ffffff 53%, #ff6600 53%, #ff6600 100%);
@@ -89,7 +90,7 @@
     }
 
     .content-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       gap: 35px; margin-bottom: 80px; position: relative; z-index: 10;
     }
 
@@ -113,19 +114,45 @@
     .slideshow { width: 100%; height: 100%; position: relative; }
     .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out, transform 0.8s ease; }
     .slide-img.active { opacity: 1; }
-    .gallery-card:hover .slide-img.active { transform: scale(1.1); }
 
     .card h2 { color: #ff6600; text-align: center; margin: 0; font-weight: 900; }
     iframe { width: 100%; flex-grow: 1; border-radius: 8px; border: none; }
 
     .email-link { color: #ff6600; text-decoration: none; font-weight: 700; transition: 0.3s; }
-    .email-link:hover { color: #fff; text-decoration: underline; }
 
+    /* --- התאמות למוביל (MOBILE FIXES) --- */
     @media (max-width: 900px) {
-        body { padding: 0 40px; }
-        .main-title { font-size: 2.5em; }
-        .content-grid { grid-template-columns: 1fr; }
-        .intro-box { padding: 40px 20px; clip-path: none; }
+        body { padding: 0; } /* ביטול שוליים רחבים */
+        
+        /* ביטול פסי הצד במוביל כדי לתת מרחב לתוכן */
+        body::after, .container::before { display: none; }
+        
+        .container { padding: 20px 15px; }
+
+        .main-title { 
+            font-size: 2.2em; 
+            letter-spacing: 2px; 
+            margin-top: 20px;
+        }
+
+        .banner-logo { max-height: 200px; width: 95%; }
+
+        .intro-box { 
+            padding: 40px 15px 30px; 
+            clip-path: none; /* ביטול האלכסון שגורם לבעיות במוביל */
+            margin-top: 10px;
+        }
+        .intro-box p { font-size: 1.1em; }
+        
+        .content-grid { 
+            grid-template-columns: 1fr; /* כרטיסייה אחת בשורה */
+            gap: 20px;
+        }
+
+        .card { height: 400px; padding: 15px; }
+        
+        /* התאמת טקסט האימייל למסך קטן */
+        .email-link { font-size: 0.9em; line-height: 1.4; display: block; }
     }
   </style>
 </head>
@@ -139,20 +166,20 @@
     </div>
 
     <div class="intro-box">
-        <p style="font-size: 1.4em;">ברוכים הבאים לסינגל על שם האחד והיחיד</p>
+        <p style="font-size: 1.3em;">ברוכים הבאים לסינגל על שם האחד והיחיד</p>
         <p style="margin-top: 5px;"><span style="font-size: 1.1em;"><strong>Mathieu van der Poel</strong></span></p>
-        <p style="font-size: 1.25em; font-weight: 400; color: #fff; line-height: 1.4; margin-top: 25px;">
+        <p style="font-size: 1.2em; font-weight: 400; color: #fff; line-height: 1.4; margin-top: 25px;">
             זהו מסלול <strong>XC מהיר</strong> ומדויק.<br>
             הקפה אחת באורך <strong>3.1 ק"מ</strong>, עם טיפוס מצטבר של <strong>95 מטר</strong>.
         </p>
-        <p style="font-size: 1.35em; font-weight: 700; color: #ff6600; margin-top: 15px;">
+        <p style="font-size: 1.3em; font-weight: 700; color: #ff6600; margin-top: 15px;">
             <strong>יופי של מסלול XCO לאימונים!</strong> ⏱️
         </p>
-        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
-            המסלול הוא חיבור של כמה סינגלים ותיקים ביער שלנו. עקבו אחרי <strong>החצים הכחולים 🟦</strong>.
+        <p style="font-size: 1.1em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 20px;">
+            עקבו אחרי <strong>החצים הכחולים 🟦</strong>.
         </p>
-        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ להורדת קובץ הניווט (GPX)</a>
-        <p style="font-size: 1.2em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 0;">תהנו! 🚵‍♂️</p>
+        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ GPX</a>
+        <p style="font-size: 1.1em; color:#cccccc; display:block; margin-top:30px; margin-bottom: 0;">תהנו! 🚵‍♂️</p>
     </div>
     
     <div class="content-grid">
@@ -200,17 +227,16 @@
       </div>
     </div>
 
-    <div style="text-align: center; opacity: 0.9; padding: 40px; border-top: 1px solid #ff6600; margin-top: 50px; background: rgba(20, 20, 20, 0.8); border-radius: 12px;">
-        <p style="font-size: 1.1em; color: #e0e0e0; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <a href="mailto:van.der0nothing@gmail.com" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+    <div style="text-align: center; opacity: 0.9; padding: 25px; border-top: 1px solid #ff6600; margin-top: 30px; background: rgba(20, 20, 20, 0.8); border-radius: 12px;">
+        <p style="margin-bottom: 15px;">
+            <a href="mailto:van.der0nothing@gmail.com" style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Email" style="height: 25px;">
-                <span class="email-link">רכבתם בסינגל? יש לכם הערות? מוזמנים לשלוח מייל לכתובת van.der0nothing@gmail.com</span>
+                <span class="email-link">רכבתם בסינגל? יש לכם הערות? שלחו מייל ל-van.der0nothing@gmail.com</span>
             </a>
         </p>
-        <p style="font-size: 1.2em; color: #ff6600; font-weight: 700; margin-bottom: 10px;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
-        <p style="font-size: 1em; color: #cccccc; margin-bottom: 20px;">מה שנכנס איתנו ליער, חוזר איתנו הביתה. בואו נשמור על הסינגלים שלנו ירוקים.</p>
-        <p style="font-size: 0.85em; color: #888; border-top: 1px solid #333; padding-top: 15px;">
-            <strong>הבהרה משפטית:</strong> הרכיבה במסלול הינה באחריות הרוכב/ת בלבד. יש להשתמש בציוד מגן מתאים ולהישמע להוראות הבטיחות. 
+        <p style="font-size: 1.1em; color: #ff6600; font-weight: 700;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
+        <p style="font-size: 0.8em; color: #888; border-top: 1px solid #333; padding-top: 15px; line-height: 1.4;">
+            <strong>הבהרה משפטית:</strong> הרכיבה במסלול הינה באחריות הרוכב/ת בלבד. 
         </p>
     </div>
   </div>
