@@ -24,7 +24,6 @@
       z-index: 1; 
     }
 
-    /* רקע המפה המשודרג */
     body::before {
         content: '';
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -33,7 +32,6 @@
         opacity: 0.3; filter: grayscale(100%) brightness(40%); z-index: -1; 
     }
 
-    /* פסי הצד המפורסמים */
     body::after, .container::before {
         content: ''; position: fixed; top: 0; bottom: 0; width: 80px;
         background: linear-gradient(to right, var(--primary-orange) 0%, var(--primary-orange) 47%, #ffffff 47%, #ffffff 53%, var(--primary-orange) 53%, var(--primary-orange) 100%);
@@ -44,7 +42,6 @@
 
     .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
 
-    /* כותרת Pro בסגנון ספורט אקסטרים */
     .main-title {
         font-family: 'Teko', sans-serif;
         font-size: 8em; font-weight: 700; text-align: center; text-transform: uppercase;
@@ -61,10 +58,8 @@
         mask-image: radial-gradient(circle, black 75%, transparent 100%);
         -webkit-mask-image: radial-gradient(circle, black 75%, transparent 100%);
         filter: drop-shadow(0 0 25px rgba(255, 102, 0, 0.5));
-        transition: 0.5s ease;
     }
 
-    /* תיבת פתיחה Glassmorphism */
     .intro-box {
       background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
       border-radius: 15px; padding: 50px 80px; text-align: center; max-width: 800px;
@@ -72,10 +67,7 @@
       border: 1px solid rgba(255, 102, 0, 0.3);
       box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
-    .intro-box p { font-size: 1.4em; font-weight: 300; line-height: 1.6; color: #ddd; }
-    .intro-box strong { color: var(--primary-orange); font-weight: 700; }
 
-    /* כפתור עם אנימציית פעימה */
     .download-button {
         display: inline-block; margin-top: 35px; padding: 15px 35px; 
         background-color: var(--primary-orange); color: #000; font-weight: 900;
@@ -91,33 +83,36 @@
     }
     .download-button:hover { background-color: #fff; transform: scale(1.1); animation: none; }
 
+    /* עיצוב השורה העליונה הקטנה */
+    .top-small-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; margin-bottom: 30px; position: relative; z-index: 10;
+    }
+
+    /* עיצוב הגריד הראשי של ה-4 */
     .content-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
       gap: 30px; margin-bottom: 80px; position: relative; z-index: 10;
     }
 
-    /* כרטיסיות משודרגות */
     .card { 
         background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); 
-        height: 450px; box-sizing: border-box; display: flex; flex-direction: column;
+        height: 480px; box-sizing: border-box; display: flex; flex-direction: column;
         transition: 0.4s ease;
     }
-    .card:hover { 
-        transform: translateY(-10px); 
-        border-color: var(--primary-orange);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-    }
+    .card:hover { transform: translateY(-8px); border-color: var(--primary-orange); }
 
-    .card-marker { height: auto !important; padding: 30px; flex-direction: row !important; align-items: center; justify-content: space-around; }
-    .card-marker img { height: 80px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
-
-    .header-with-icon { 
-        display: flex; align-items: center; justify-content: center; gap: 15px; 
-        margin-bottom: 20px; text-decoration: none; 
+    /* סגנון ספציפי לכרטיסיות הקטנות */
+    .card-small {
+        height: auto !important; padding: 15px 30px; flex-direction: row !important; align-items: center; justify-content: space-between;
     }
+    .card-small h2 { font-size: 1.8em !important; margin: 0; }
+    .card-small p { margin: 0; font-size: 1.1em; }
+    .card-small img { height: 60px; width: auto; object-fit: contain; }
+
+    .header-with-icon { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; text-decoration: none; }
     .round-icon { width: 45px; height: 45px; border-radius: 50%; background: #fff; padding: 5px; }
-
     .card h2 { font-family: 'Teko', sans-serif; font-size: 2.2em; color: var(--primary-orange); text-transform: uppercase; margin: 0; }
     
     .gallery-card { padding: 0; overflow: hidden; }
@@ -130,8 +125,8 @@
     @media (max-width: 900px) {
         body { padding: 0; }
         body::after, .container::before { display: none; }
-        .main-title { font-size: 4em; letter-spacing: -1px; }
-        .intro-box { padding: 40px 20px; margin: 0 15px 40px; }
+        .main-title { font-size: 4em; }
+        .top-small-grid { grid-template-columns: 1fr; padding: 0 15px; }
         .content-grid { grid-template-columns: 1fr; padding: 0 15px; }
         .card { height: 400px; }
     }
@@ -149,18 +144,15 @@
     <div class="intro-box">
         <p style="font-size: 1.5em; font-weight: 700; margin-bottom: 10px;">ברוכים הבאים לסינגל על שם האלוף</p>
         <p style="font-family: 'Teko', sans-serif; font-size: 3em; color: #fff; line-height: 1;">MATHIEU VAN DER POEL</p>
-        
         <p style="margin-top: 30px;">
             מסלול <strong>XC מהיר</strong>, עצבני ומדויק.<br>
             הקפה אחת: <strong>3.1 ק"מ</strong> | טיפוס: <strong>95 מטר</strong>.
         </p>
-        
         <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ GPX למכשיר</a>
-        <p style="font-size: 1.1em; color:#888; margin-top: 25px;">עקבו אחרי החצים הכחולים 🟦 ותנו בראש!</p>
     </div>
-    
-    <div class="content-grid">
-      <div class="card card-marker">
+
+    <div class="top-small-grid">
+      <div class="card card-small">
         <div>
             <h2>סימון חצים</h2>
             <p>חפשו את הקידוד <strong>הכחול</strong></p>
@@ -168,14 +160,16 @@
         <img src="bluearrow.png" alt="חץ כחול">
       </div>
 
-      <div class="card card-marker">
+      <div class="card card-small">
         <div>
             <h2>סימון טבעי</h2>
             <p>בנייה בסגנון <strong>Old School</strong></p>
         </div>
         <img src="Branch_marking.png" alt="סימון ענפים" style="border-radius: 10px;">
       </div>
-
+    </div>
+    
+    <div class="content-grid">
       <div class="card">
         <a href="https://www.strava.com/segments/40662774" target="_blank" class="header-with-icon">
             <img src="strava_icon.png" class="round-icon" alt="Strava">
