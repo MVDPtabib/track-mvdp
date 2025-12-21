@@ -38,39 +38,19 @@
     .container { max-width: 1200px; margin: auto; padding: 50px 20px; }
 
     .main-title {
-        font-size: 5em;
-        font-weight: 900;
-        text-align: center;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-        background: linear-gradient(45deg, #ff6600, #ffffff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 5px;
-        filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.8));
+        font-size: 5em; font-weight: 900; text-align: center; text-transform: uppercase;
+        margin-bottom: 10px; background: linear-gradient(45deg, #ff6600, #ffffff);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        letter-spacing: 5px; filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.8));
     }
 
-    /* עיצוב הלוגו עם קצוות רכים ומסגרת זוהרת כתומה */
-    .banner-container {
-        width: 100%;
-        margin-bottom: 30px;
-        text-align: center;
-        position: relative;
-    }
+    .banner-container { width: 100%; margin-bottom: 30px; text-align: center; position: relative; }
     .banner-logo { 
-        width: 100%; 
-        max-width: 1000px; 
-        height: auto; 
-        max-height: 380px; 
-        display: block; 
-        margin: 0 auto; 
-        object-fit: contain;
-        /* מיזוג קצוות רכים */
+        width: 100%; max-width: 1000px; height: auto; max-height: 380px; 
+        display: block; margin: 0 auto; object-fit: contain;
         mask-image: radial-gradient(circle, black 80%, transparent 100%);
         -webkit-mask-image: radial-gradient(circle, black 80%, transparent 100%);
-        /* מסגרת כתומה נעימה (Glow) */
         filter: drop-shadow(0 0 20px rgba(255, 102, 0, 0.6));
-        border-radius: 50px; /* עוזר לריכוך הכללי */
     }
 
     .intro-box {
@@ -97,9 +77,8 @@
     }
 
     .card { 
-        background-color: rgba(22, 22, 22, 0.95); 
-        border-radius: 12px; padding: 25px; border: 1px solid #333; 
-        height: 450px; box-sizing: border-box; display: flex; flex-direction: column;
+        background-color: rgba(22, 22, 22, 0.95); border-radius: 12px; padding: 25px; 
+        border: 1px solid #333; height: 450px; box-sizing: border-box; display: flex; flex-direction: column;
     }
 
     .card-marker {
@@ -109,7 +88,11 @@
     .card-marker p { margin: 0; font-size: 1.2em; font-weight: 700; }
     .card-marker img { height: 65px; width: auto; object-fit: contain; }
 
-    .header-with-icon { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; }
+    .header-with-icon { 
+        display: flex; align-items: center; justify-content: center; gap: 15px; 
+        margin-bottom: 20px; text-decoration: none; transition: 0.3s;
+    }
+    .header-with-icon:hover { opacity: 0.8; transform: scale(1.02); }
     .round-icon { width: 45px; height: 45px; border-radius: 50%; background-color: #fff; padding: 5px; object-fit: contain; }
 
     .gallery-card { padding: 0; overflow: hidden; border: 2px solid #333; cursor: pointer; }
@@ -127,7 +110,7 @@
         body::after, .container::before { display: none; }
         .container { padding: 20px 15px; }
         .main-title { font-size: 2.2em; letter-spacing: 2px; margin-top: 20px; }
-        .banner-logo { max-height: 220px; width: 95%; filter: drop-shadow(0 0 10px rgba(255, 102, 0, 0.5)); }
+        .banner-logo { max-height: 220px; width: 95%; }
         .intro-box { padding: 40px 15px 30px; clip-path: none; margin-top: 10px; }
         .content-grid { grid-template-columns: 1fr; gap: 20px; }
         .card { height: 400px; padding: 15px; }
@@ -172,10 +155,10 @@
       </div>
 
       <div class="card">
-        <div class="header-with-icon">
+        <a href="https://www.strava.com/segments/40662774" target="_blank" class="header-with-icon">
             <img src="strava_icon.png" class="round-icon" alt="Strava Icon">
             <h2>Strava Segment</h2>
-        </div>
+        </a>
         <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
       </div>
 
@@ -197,10 +180,10 @@
       </div>
 
       <div class="card">
-        <div class="header-with-icon">
+        <a href="https://www.youtube.com/watch?v=INSERT_VIDEO_ID_HERE" target="_blank" class="header-with-icon">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-icon" alt="YouTube Icon">
             <h2>Video Preview</h2>
-        </div>
+        </a>
         <iframe src="https://www.youtube.com/embed/INSERT_VIDEO_ID_HERE" allowfullscreen></iframe>
       </div>
     </div>
