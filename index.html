@@ -15,6 +15,7 @@
         --border-thin: rgba(255, 255, 255, 0.1);
     }
 
+    /* Custom Cursor Reset */
     * { box-sizing: border-box; cursor: none !important; }
 
     body {
@@ -62,7 +63,7 @@
     #movie2 { left: 0; transform: translateX(-100%); }
     .reveal-active #movie1, .reveal-active #movie2 { transform: translateX(0); }
 
-    /* --- CONTENT GRID --- */
+    /* --- BASTION GRID LAYOUT --- */
     .bastion-layout {
         max-width: 1400px; margin: 0 auto; padding: 100px 40px;
         display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
@@ -84,7 +85,6 @@
 
     .youtube-container { grid-column: 1 / 9; height: 550px; background: #000; }
     .text-next-to-video { grid-column: 10 / 13; align-self: center; }
-    .round-social-icon { width: 50px; height: 50px; margin-bottom: 15px; transition: transform 0.3s; }
 
     .navigation-box { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: center; }
     .nav-icon-wrapper {
@@ -94,6 +94,7 @@
     .nav-icon-img { width: 100%; height: 100%; object-fit: cover; }
 
     .strava-box { grid-column: 6 / 13; height: 450px; }
+    .round-social-icon { width: 50px; height: 50px; margin-bottom: 15px; transition: transform 0.3s; }
 
     .download-btn {
         display: inline-block; margin-top: 30px; padding: 12px 30px; border: 1px solid var(--accent-orange);
@@ -123,8 +124,14 @@
   <div class="hero-scroll-container" id="scrollTrigger">
       <div class="sticky-frame">
           <h1 class="hero-title">MVDP<br>Track<span class="location-sub">Rosh HaAyin</span></h1>
-          <video id="movie1" class="scroll-video" autoplay muted loop playsinline><source src="Movie1.mp4" type="video/mp4"></video>
-          <video id="movie2" class="scroll-video" autoplay muted loop playsinline><source src="Movie2.mp4" type="video/mp4"></video>
+          
+          <video id="movie1" class="scroll-video" autoplay muted loop playsinline>
+              <source src="https://drive.google.com/uc?export=download&id=1drpvgARNDTNTTyrEihZEHSQYXv1pURmU" type="video/mp4">
+          </video>
+          
+          <video id="movie2" class="scroll-video" autoplay muted loop playsinline>
+              <source src="https://drive.google.com/uc?export=download&id=1wpgRCzUxio0I3yez5XzsIdGGLnmZvO-S" type="video/mp4">
+          </video>
       </div>
   </div>
 
@@ -199,6 +206,7 @@
   </main>
 
   <script>
+    // Cursor Logic
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
 
@@ -223,6 +231,7 @@
         });
     });
 
+    // Scroll Reveal
     window.addEventListener('scroll', () => {
         const scrollTrigger = document.getElementById('scrollTrigger');
         const scrollPosition = window.scrollY;
@@ -231,6 +240,7 @@
         else scrollTrigger.classList.remove('reveal-active');
     });
 
+    // Gallery Slideshow
     function runSlideshow() {
         const slides = document.querySelectorAll('#mainGallery .slide');
         let current = 0;
