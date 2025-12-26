@@ -28,7 +28,7 @@
     .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
     .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; }
 
-    /* --- HERO SIDE-BY-SIDE WITH SLIDE --- */
+    /* --- HERO DUAL SIDE SCROLL --- */
     .hero-scroll-container { height: 450vh; position: relative; }
     .sticky-frame {
         position: sticky; top: 0; height: 100vh; width: 100vw;
@@ -42,10 +42,15 @@
     .location-sub { display: block; font-size: 3vw; font-weight: 300; color: var(--accent-orange); letter-spacing: 4px; margin-top: 15px; }
 
     .scroll-video {
-        position: absolute; right: 0; top: 0; width: 50vw; height: 100vh;
-        object-fit: cover; z-index: 5; transition: opacity 0.4s ease-out, transform 0.1s linear; opacity: 0;
+        position: absolute; top: 0; width: 50vw; height: 100vh;
+        object-fit: cover; z-index: 5; transition: opacity 0.4s ease-out; opacity: 0;
     }
-    #movie2 { transform: translateX(100%); }
+    
+    /* סרטון 1 - ימין */
+    #movie1 { right: 0; }
+    
+    /* סרטון 2 - שמאל עם הכנה לכניסה */
+    #movie2 { left: 0; transform: translateX(-100%); transition: opacity 0.4s, transform 0.1s linear; }
 
     /* --- CONTENT GRID --- */
     .bastion-layout {
@@ -66,7 +71,7 @@
     .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
     .slide.active { opacity: 1; }
 
-    /* --- UNIFIED BRAND ICONS --- */
+    /* --- BRAND ICONS --- */
     .round-brand-icon { 
         width: 60px; height: 60px; border: 2px solid var(--accent-orange); 
         border-radius: 50%; background: white; padding: 8px; 
@@ -92,13 +97,12 @@
     /* --- FOOTER --- */
     footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 100px 0; text-align: center; }
     .gmail-icon { width: 45px; margin-bottom: 15px; transition: 0.3s; }
-    .gmail-icon:hover { transform: translateY(-5px); }
-    .legal-disclaimer { color: #555; font-size: 0.75rem; margin-top: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.4; }
+    .legal-disclaimer { color: #555; font-size: 0.75rem; margin-top: 40px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 
     @media (max-width: 900px) {
         .cursor-dot, .cursor-outline { display: none; }
         .hero-title { font-size: 16vw; }
-        .scroll-video { width: 100vw; right: 0; opacity: 0.2 !important; transform: none !important; }
+        .scroll-video { width: 100vw; opacity: 0.2 !important; transform: none !important; left: 0 !important; right: 0 !important; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
         .grid-item { width: 100%; margin-bottom: 60px; }
         .gallery-large, .youtube-container, .strava-box { height: 300px; }
@@ -113,9 +117,11 @@
   <div class="hero-scroll-container">
       <div class="sticky-frame">
           <h1 class="hero-title">MVDP<br>Track<span class="location-sub">Rosh HaAyin</span></h1>
+          
           <video id="movie1" class="scroll-video" autoplay muted loop playsinline preload="auto">
               <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4">
           </video>
+          
           <video id="movie2" class="scroll-video" autoplay muted loop playsinline preload="auto">
               <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4">
           </video>
@@ -136,6 +142,7 @@
           <h2 class="section-heading">Born in the forest.<br>Built for speed.</h2>
           <p class="description-text">A technical XC trail in Rosh HaAyin forest.</p>
       </div>
+      
       <div class="grid-item gallery-large" id="mainGallery">
           <div class="slideshow-container">
             <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
@@ -145,6 +152,7 @@
       <div class="grid-item youtube-container">
           <iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe>
       </div>
+      
       <div class="grid-item text-next-to-video">
           <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-brand-icon" alt="YouTube">
@@ -157,7 +165,7 @@
           <img src="bluearrow.png" alt="Navigation" class="round-brand-icon">
           <span class="label">Navigation</span>
           <h2 class="section-heading">Follow the Path</h2>
-          <p class="description-text">Follow the blue arrows and markings on trees.</p>
+          <p class="description-text">Follow the blue arrows on trees.</p>
       </div>
 
       <div class="grid-item strava-box">
@@ -175,7 +183,7 @@
               <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" class="gmail-icon">
           </a>
           <p style="font-size: 1.1rem; font-weight: 300; margin: 0;">van.der0nothing@gmail.com</p>
-          <p style="color: var(--accent-orange); margin-top: 40px; font-weight: 700; letter-spacing: 1px;">RIDE, ENJOY, AND KEEP THE FOREST CLEAN.</p>
+          <p style="color: var(--accent-orange); margin-top: 40px; font-weight: 700;">RIDE, ENJOY, AND KEEP THE FOREST CLEAN.</p>
           
           <div class="legal-disclaimer">
               Riding the trail is at the rider's own responsibility. The creators of the track or the website are not responsible for any damage or injury. Please wear a helmet and ride within your skill level.
@@ -194,22 +202,26 @@
         });
     }
 
-    // Scroll Logic (Slide-in Effect)
+    // Scroll Logic: Movie 1 (Right) then Movie 2 (Left-Slide)
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         const vh = window.innerHeight;
         const m1 = document.getElementById('movie1');
         const m2 = document.getElementById('movie2');
 
+        // Movie 1 (Right Side)
         if (scrollY > vh * 0.1 && scrollY <= vh * 1.5) {
             m1.style.opacity = "0.6";
         } else {
             m1.style.opacity = "0";
         }
 
+        // Movie 2 (Left Side Slide-in)
         if (scrollY > vh * 1.5 && scrollY <= vh * 3.2) {
             const progress = (scrollY - vh * 1.5) / (vh * 1.2); 
-            const moveX = Math.max(0, 100 - (progress * 100)); 
+            // נכנס משמאל (-100%) למרכז (0%)
+            const moveX = Math.min(0, -100 + (progress * 100)); 
+            
             m2.style.opacity = Math.min(0.6, progress * 1.5);
             m2.style.transform = `translateX(${moveX}%)`;
             m1.style.opacity = Math.max(0, 0.6 - progress * 2);
@@ -220,11 +232,10 @@
         }
         else {
             m2.style.opacity = "0";
-            m2.style.transform = `translateX(100%)`;
+            m2.style.transform = `translateX(-100%)`;
         }
     });
 
-    // Slideshow
     function runSlideshow() {
         const slides = document.querySelectorAll('.slide');
         let current = 0;
