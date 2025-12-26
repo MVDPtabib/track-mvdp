@@ -1,235 +1,248 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MVDP Single-Track Rosh Haayin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <title>MVDP | Engineering Performance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-        --primary-orange: #ff6600;
-        --glass-bg: rgba(20, 20, 20, 0.7);
+        --bg-black: #0b0b0b;
+        --text-main: #e5e5e5;
+        --text-dim: #a1a1a1;
+        --accent-orange: #ff6600;
+        --accent-blue: #0066ff;
+        --border-thin: rgba(255, 255, 255, 0.1);
     }
+
+    * { box-sizing: border-box; cursor: none !important; }
 
     body {
-      margin: 0;
-      padding: 0 120px; 
-      font-family: 'Heebo', sans-serif;
-      background-color: #050505;
-      color: #f0f0f0;
-      min-height: 100vh;
-      padding-bottom: 50px; 
+      margin: 0; padding: 0;
+      background-color: var(--bg-black);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
-      position: relative; 
-      z-index: 1; 
+      line-height: 1.6;
     }
 
-    body::before {
-        content: '';
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background-image: url('map.png'); 
-        background-size: cover; background-position: center;
-        opacity: 0.3; filter: grayscale(100%) brightness(40%); z-index: -1; 
+    /* --- FOY CURSOR EFFECT --- */
+    .cursor-dot {
+        width: 8px; height: 8px; background-color: var(--accent-orange);
+        position: fixed; top: 0; left: 0; border-radius: 50%;
+        pointer-events: none; z-index: 9999; transition: transform 0.1s ease;
+    }
+    .cursor-outline {
+        width: 40px; height: 40px; border: 1px solid var(--accent-orange);
+        position: fixed; top: 0; left: 0; border-radius: 50%;
+        pointer-events: none; z-index: 9998; transition: transform 0.15s ease-out, opacity 0.3s;
+        opacity: 0.5;
     }
 
-    body::after, .container::before {
-        content: ''; position: fixed; top: 0; bottom: 0; width: 80px;
-        background: linear-gradient(to right, var(--primary-orange) 0%, var(--primary-orange) 47%, #ffffff 47%, #ffffff 53%, var(--primary-orange) 53%, var(--primary-orange) 100%);
-        z-index: 100; box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    /* --- HERO SCROLL --- */
+    .hero-scroll-container { height: 250vh; position: relative; }
+    .sticky-frame {
+        position: sticky; top: 0; height: 100vh;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        overflow: hidden; background-color: var(--bg-black);
     }
-    body::after { right: 0; }
-    .container::before { left: 0; position: fixed; top:0; bottom:0; z-index:100; content:'';}
-
-    .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
-
-    .main-title {
-        font-family: 'Teko', sans-serif;
-        font-size: 8em; font-weight: 700; text-align: center; text-transform: uppercase;
-        margin: 20px 0 10px 0; line-height: 0.8; font-style: italic;
-        background: linear-gradient(to bottom, #ffffff 30%, var(--primary-orange) 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        filter: drop-shadow(4px 4px 0px rgba(0,0,0,1));
-        letter-spacing: -2px;
+    .hero-title {
+        font-size: 9vw; font-weight: 900; letter-spacing: -2px;
+        text-transform: uppercase; margin: 0; z-index: 10; color: #fff; text-align: center; line-height: 1;
     }
-
-    .banner-container { width: 100%; margin-bottom: 40px; text-align: center; }
-    .banner-logo { 
-        width: 100%; max-width: 900px; height: auto; 
-        mask-image: radial-gradient(circle, black 75%, transparent 100%);
-        -webkit-mask-image: radial-gradient(circle, black 75%, transparent 100%);
-        filter: drop-shadow(0 0 25px rgba(255, 102, 0, 0.5));
+    .location-sub {
+        display: block; font-size: 3vw; font-weight: 300; color: var(--accent-orange);
+        letter-spacing: 4px; margin-top: 15px;
     }
-
-    .intro-box {
-      background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-      border-radius: 15px; padding: 50px 80px; text-align: center; max-width: 800px;
-      margin: 0 auto 50px auto; position: relative; z-index: 10;
-      border: 1px solid rgba(255, 102, 0, 0.3);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    .scroll-video {
+        position: absolute; width: 50vw; height: 100vh; object-fit: cover;
+        z-index: 5; top: 0; transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1); opacity: 0.5;
     }
+    #movie1 { right: 0; transform: translateX(100%); }
+    #movie2 { left: 0; transform: translateX(-100%); }
+    .reveal-active #movie1, .reveal-active #movie2 { transform: translateX(0); }
 
-    .download-button {
-        display: inline-block; margin-top: 35px; padding: 15px 35px; 
-        background-color: var(--primary-orange); color: #000; font-weight: 900;
-        text-decoration: none; border-radius: 50px; font-size: 1.2em;
-        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 10px 20px rgba(255, 102, 0, 0.3);
-        animation: pulse 2s infinite;
+    /* --- CONTENT GRID --- */
+    .bastion-layout {
+        max-width: 1400px; margin: 0 auto; padding: 100px 40px;
+        display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
+        position: relative; z-index: 20;
     }
-    @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7); }
-        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 102, 0, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
+    .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-orange); margin-bottom: 20px; display: block; }
+    .section-heading { font-size: 2.5rem; font-weight: 300; line-height: 1.1; margin-bottom: 30px; }
+    .description-text { font-size: 1.1rem; color: var(--text-dim); font-weight: 300; }
+    .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 120px; }
+
+    .intro-summary { grid-column: 1 / 13; text-align: center; padding: 100px 0; border-bottom: 1px solid var(--border-thin); margin-bottom: 80px; }
+
+    .gallery-large { grid-column: 5 / 13; height: 600px; background: #151515; overflow: hidden; position: relative; }
+    .text-next-to-gallery { grid-column: 1 / 4; align-self: center; }
+    .slideshow-container { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+    .gallery-large:hover .slideshow-container { transform: scale(1.05); }
+    .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
+    .slide.active { opacity: 1; }
+
+    .youtube-container { grid-column: 1 / 9; height: 550px; background: #000; }
+    .text-next-to-video { grid-column: 10 / 13; align-self: center; }
+    .round-social-icon { width: 50px; height: 50px; margin-bottom: 15px; transition: transform 0.3s; }
+
+    .navigation-box { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: center; }
+    .nav-icon-wrapper {
+        width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin-bottom: 25px;
+        box-shadow: 0 0 25px rgba(0, 102, 255, 0.4); border: 2px solid rgba(255, 255, 255, 0.1);
     }
-    .download-button:hover { background-color: #fff; transform: scale(1.1); animation: none; }
+    .nav-icon-img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* עיצוב השורה העליונה הקטנה */
-    .top-small-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 20px; margin-bottom: 30px; position: relative; z-index: 10;
+    .strava-box { grid-column: 6 / 13; height: 450px; }
+
+    .download-btn {
+        display: inline-block; margin-top: 30px; padding: 12px 30px; border: 1px solid var(--accent-orange);
+        color: var(--accent-orange); text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; transition: 0.3s;
     }
+    .download-btn:hover { background: var(--accent-orange); color: #000; }
 
-    /* עיצוב הגריד הראשי של ה-4 */
-    .content-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 30px; margin-bottom: 80px; position: relative; z-index: 10;
-    }
+    iframe { width: 100%; height: 100%; border: none; }
 
-    .card { 
-        background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); 
-        height: 480px; box-sizing: border-box; display: flex; flex-direction: column;
-        transition: 0.4s ease;
-    }
-    .card:hover { transform: translateY(-8px); border-color: var(--primary-orange); }
-
-    /* סגנון ספציפי לכרטיסיות הקטנות */
-    .card-small {
-        height: auto !important; padding: 15px 30px; flex-direction: row !important; align-items: center; justify-content: space-between;
-    }
-    .card-small h2 { font-size: 1.8em !important; margin: 0; }
-    .card-small p { margin: 0; font-size: 1.1em; }
-    .card-small img { height: 60px; width: auto; object-fit: contain; }
-
-    .header-with-icon { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; text-decoration: none; }
-    .round-icon { width: 45px; height: 45px; border-radius: 50%; background: #fff; padding: 5px; }
-    .card h2 { font-family: 'Teko', sans-serif; font-size: 2.2em; color: var(--primary-orange); text-transform: uppercase; margin: 0; }
-    
-    .gallery-card { padding: 0; overflow: hidden; }
-    .slideshow { width: 100%; height: 100%; position: relative; }
-    .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s ease-in-out; }
-    .slide-img.active { opacity: 1; }
-
-    iframe { width: 100%; flex-grow: 1; border-radius: 10px; border: none; background: #111; }
+    footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 100px 0; text-align: center; }
+    .gmail-icon { width: 40px; margin-bottom: 20px; transition: 0.3s; }
+    .legal-disclaimer { color: #444; font-size: 0.75rem; margin-top: 30px; max-width: 600px; margin: 30px auto 0; }
 
     @media (max-width: 900px) {
-        body { padding: 0; }
-        body::after, .container::before { display: none; }
-        .main-title { font-size: 4em; }
-        .top-small-grid { grid-template-columns: 1fr; padding: 0 15px; }
-        .content-grid { grid-template-columns: 1fr; padding: 0 15px; }
-        .card { height: 400px; }
+        .bastion-layout { display: block; }
+        .gallery-large, .youtube-container, .strava-box { height: 350px; width: 100%; margin-bottom: 40px; }
+        .cursor-dot, .cursor-outline { display: none; }
+        * { cursor: auto !important; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    
-    <h1 class="main-title">MVDP SINGLE-TRACK</h1>
 
-    <div class="banner-container">
-        <img src="new_logo.png" alt="MVDP Banner" class="banner-logo">
-    </div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
 
-    <div class="intro-box">
-        <p style="font-size: 1.5em; font-weight: 700; margin-bottom: 10px;">ברוכים הבאים לסינגל על שם האלוף</p>
-        <p style="font-family: 'Teko', sans-serif; font-size: 3em; color: #fff; line-height: 1;">MATHIEU VAN DER POEL</p>
-        <p style="margin-top: 30px;">
-            מסלול <strong>XC מהיר</strong>, עצבני ומדויק.<br>
-            הקפה אחת: <strong>3.1 ק"מ</strong> | טיפוס: <strong>95 מטר</strong>.
-        </p>
-        <a href="MVDP Single-Track.gpx" download class="download-button">⬇️ הורדת קובץ GPX למכשיר</a>
-    </div>
-
-    <div class="top-small-grid">
-      <div class="card card-small">
-        <div>
-            <h2>סימון חצים</h2>
-            <p>חפשו את הקידוד <strong>הכחול</strong></p>
-        </div>
-        <img src="bluearrow.png" alt="חץ כחול">
+  <div class="hero-scroll-container" id="scrollTrigger">
+      <div class="sticky-frame">
+          <h1 class="hero-title">MVDP<br>Track<span class="location-sub">Rosh HaAyin</span></h1>
+          <video id="movie1" class="scroll-video" autoplay muted loop playsinline><source src="Movie1.mp4" type="video/mp4"></video>
+          <video id="movie2" class="scroll-video" autoplay muted loop playsinline><source src="Movie2.mp4" type="video/mp4"></video>
       </div>
-
-      <div class="card card-small">
-        <div>
-            <h2>סימון טבעי</h2>
-            <p>בנייה בסגנון <strong>Old School</strong></p>
-        </div>
-        <img src="Branch_marking.png" alt="סימון ענפים" style="border-radius: 10px;">
-      </div>
-    </div>
-    
-    <div class="content-grid">
-      <div class="card">
-        <a href="https://www.strava.com/segments/40662774" target="_blank" class="header-with-icon">
-            <img src="strava_icon.png" class="round-icon" alt="Strava">
-            <h2>Strava Segment</h2>
-        </a>
-        <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
-      </div>
-
-      <div class="card gallery-card" id="track-gallery">
-        <div class="slideshow">
-            <img src="ga1.jpeg" class="slide-img active">
-            <img src="ga2.jpeg" class="slide-img">
-            <img src="ga3.jpeg" class="slide-img">
-            <img src="ga4.jpeg" class="slide-img">
-            <img src="ga5.jpeg" class="slide-img">
-        </div>
-      </div>
-
-      <div class="card gallery-card" id="mvdp-gallery">
-        <div class="slideshow">
-            <img src="https://escapecollective.com/content/images/wordpress/2025/01/CORVOS_00035811-002-world-champs-2023-mvdp.jpg" class="slide-img active">
-            <img src="https://cdn.mos.cms.futurecdn.net/Erp5bYQfSVBHaVzYUH4WAc-970-80.jpg.webp" class="slide-img">
-        </div>
-      </div>
-
-      <div class="card">
-        <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank" class="header-with-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-icon" alt="YouTube">
-            <h2>Video Preview</h2>
-        </a>
-        <iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div style="text-align: center; padding: 40px; border-top: 1px solid var(--primary-orange); background: rgba(0,0,0,0.6); border-radius: 20px;">
-        <a href="mailto:van.der0nothing@gmail.com" style="text-decoration: none; color: inherit;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Email" style="height: 30px; margin-bottom: 10px;">
-            <p style="color: var(--primary-orange); font-weight: 700; font-size: 1.2em; margin: 5px 0;">van.der0nothing@gmail.com</p>
-        </a>
-        <p style="font-size: 1.1em; letter-spacing: 1px;">🌳 רוכבים, נהנים ושומרים על היער נקי</p>
-        <p style="font-size: 0.8em; color: #666; margin-top: 20px;">הרכיבה במסלול הינה באחריות הרוכב/ת בלבד.</p>
-    </div>
   </div>
 
+  <main class="bastion-layout">
+      
+      <section class="intro-summary">
+          <span class="label">Introduction</span>
+          <h2 class="section-heading" style="font-size: 4rem; margin-bottom: 10px;">Welcome</h2>
+          <p class="description-text" style="max-width: 600px; margin: 0 auto; color: #fff; letter-spacing: 1px;">
+              Track named after the world champion MATHIEU VAN DER POEL.
+          </p>
+          <a href="MVDP Single-Track.gpx" download class="download-btn">Download GPX</a>
+      </section>
+
+      <div class="grid-item text-next-to-gallery">
+          <span class="label">The Environment</span>
+          <h2 class="section-heading">Born in the forest.<br>Built for speed.</h2>
+          <p class="description-text">A technical XC trail in Rosh HaAyin forest.<br><strong>3.1 km | Elevation: 95 m</strong></p>
+      </div>
+      <div class="grid-item gallery-large" id="mainGallery">
+          <div class="slideshow-container">
+            <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
+          </div>
+      </div>
+
+      <div class="grid-item youtube-container">
+          <iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe>
+      </div>
+      <div class="grid-item text-next-to-video">
+          <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-social-icon" alt="YouTube">
+          </a>
+          <span class="label">Visual Journey</span>
+          <h2 class="section-heading">Watch the Flow</h2>
+          <p class="description-text">Experience the full lap and see how the flow connects every turn.</p>
+      </div>
+
+      <div class="grid-item navigation-box">
+          <div class="nav-icon-wrapper">
+              <img src="bluearrow.png" alt="Blue Arrow" class="nav-icon-img">
+          </div>
+          <span class="label">Navigation</span>
+          <h2 class="section-heading" style="font-size: 2rem;">Follow the Path</h2>
+          <p class="description-text">
+              Always follow the <strong>blue arrows</strong> to stay on the track. 
+              Look for additional <strong>blue markings on trees and rocks</strong> to ensure you are on the right path.
+          </p>
+      </div>
+
+      <div class="grid-item strava-box">
+          <a href="https://www.strava.com/segments/40662774" target="_blank">
+            <img src="strava_icon.png" class="round-social-icon" alt="Strava">
+          </a>
+          <span class="label">Performance Data</span>
+          <div style="height: 100%; border: 1px solid var(--border-thin);">
+              <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
+          </div>
+      </div>
+
+      <footer>
+          <a href="mailto:van.der0nothing@gmail.com">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" class="gmail-icon">
+          </a>
+          <p style="font-size: 1.2rem; font-weight: 300; margin: 0;">van.der0nothing@gmail.com</p>
+          <p style="color: var(--accent-orange); font-size: 1.1rem; letter-spacing: 1px; margin-top: 50px;">
+              RIDE, ENJOY, AND KEEP THE FOREST CLEAN.
+          </p>
+          <div class="legal-disclaimer">
+              Riding the trail is at the rider's own responsibility. Ride safely and according to your skill level.
+          </div>
+      </footer>
+  </main>
+
   <script>
-    function setupGallery(galleryId, intervalTime) {
-        const gallery = document.getElementById(galleryId);
-        if (!gallery) return;
-        const slides = gallery.querySelectorAll('.slide-img');
-        let current = 0;
-        setInterval(() => {
-            slides[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
-        }, intervalTime);
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-        setupGallery('track-gallery', 3500);
-        setupGallery('mvdp-gallery', 5000);
+    const dot = document.querySelector('.cursor-dot');
+    const outline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+        dot.style.transform = `translate(${posX - 4}px, ${posY - 4}px)`;
+        outline.animate({
+            transform: `translate(${posX - 20}px, ${posY - 20}px)`
+        }, { duration: 500, fill: "forwards" });
     });
+
+    const links = document.querySelectorAll('a, button, iframe, .gallery-large');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            outline.style.transform += ' scale(1.5)';
+            outline.style.backgroundColor = 'rgba(255, 102, 0, 0.1)';
+        });
+        link.addEventListener('mouseleave', () => {
+            outline.style.transform = outline.style.transform.replace(' scale(1.5)', '');
+            outline.style.backgroundColor = 'transparent';
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        const scrollTrigger = document.getElementById('scrollTrigger');
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        if (scrollPosition > windowHeight * 0.1) scrollTrigger.classList.add('reveal-active');
+        else scrollTrigger.classList.remove('reveal-active');
+    });
+
+    function runSlideshow() {
+        const slides = document.querySelectorAll('#mainGallery .slide');
+        let current = 0;
+        if(slides.length > 0) {
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 4000);
+        }
+    }
+    runSlideshow();
   </script>
 </body>
 </html>
