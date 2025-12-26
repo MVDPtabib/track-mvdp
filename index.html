@@ -110,7 +110,11 @@
     @media (max-width: 900px) {
         .cursor-dot, .cursor-outline { display: none; }
         .hero-title { font-size: 16vw; }
-        .scroll-video { width: 100vw; opacity: 0.2 !important; transform: none !important; left: 0 !important; right: 0 !important; }
+        /* Mobile Video Setup: Show only one video, centered and fixed */
+        .scroll-video { width: 100vw; left: 0 !important; right: 0 !important; transform: none !important; }
+        #movie1 { opacity: 0.25 !important; } /* Only movie 1 visible as background */
+        #movie2 { display: none !important; } /* Hide movie 2 on mobile */
+        
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
         .grid-item { width: 100%; margin-bottom: 60px; }
         .gallery-large, .youtube-container, .strava-box { height: 300px; }
@@ -214,7 +218,7 @@
   </main>
 
   <script>
-    // Cursor logic
+    // Cursor
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
     if (window.innerWidth > 900) {
@@ -224,8 +228,10 @@
         });
     }
 
-    // Scroll Logic
+    // Scroll Logic (Only active on Desktop)
     window.addEventListener('scroll', () => {
+        if (window.innerWidth <= 900) return; // Disable scroll animation on mobile
+
         const scrollY = window.scrollY;
         const vh = window.innerHeight;
         const m1 = document.getElementById('movie1');
@@ -240,6 +246,7 @@
         if (scrollY > vh * 1.5 && scrollY <= vh * 3.2) {
             const progress = (scrollY - vh * 1.5) / (vh * 1.2); 
             const moveX = Math.min(0, -100 + (progress * 100)); 
+            
             m2.style.opacity = Math.min(0.6, progress * 1.5);
             m2.style.transform = `translateX(${moveX}%)`;
             m1.style.opacity = Math.max(0, 0.6 - progress * 2);
