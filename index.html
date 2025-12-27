@@ -29,7 +29,7 @@
     .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; }
 
     /* --- HERO --- */
-    .hero-scroll-container { height: 225vh; position: relative; }
+    .hero-scroll-container { height: 250vh; position: relative; }
     .sticky-frame {
         position: sticky; top: 0; height: 100vh; width: 100vw;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -41,77 +41,81 @@
     }
     .location-sub { display: block; font-size: 3vw; font-weight: 300; color: var(--accent-orange); letter-spacing: 4px; margin-top: 15px; }
 
+    /* SCROLL HINT - החצים הלבנים */
     .scroll-hint {
-        margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 5px;
-        opacity: 0.4; z-index: 10; animation: bounce 2s infinite;
+        position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+        display: flex; flex-direction: column; align-items: center; gap: 0;
+        opacity: 0.8; z-index: 20; animation: bounce 2s infinite;
     }
-    .scroll-hint svg { width: 30px; height: 30px; stroke: var(--text-main); fill: none; stroke-width: 1; }
-    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+    .scroll-hint svg { width: 50px; height: 35px; stroke: white; fill: none; stroke-width: 2; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); } 40% { transform: translate(-50%, -15px); } 60% { transform: translate(-50%, -8px); } }
 
     .scroll-video {
         position: absolute; top: 0; width: 50vw; height: 100vh;
-        object-fit: cover; z-index: 5; transition: opacity 0.4s ease-out; opacity: 0;
+        object-fit: cover; z-index: 5; transition: opacity 0.5s ease; opacity: 0;
     }
     #movie1 { right: 0; }
-    #movie2 { left: 0; transform: translateX(-100%); transition: opacity 0.4s, transform 0.1s linear; }
+    #movie2 { left: 0; transform: translateX(-100%); transition: opacity 0.5s, transform 0.1s linear; }
 
     /* --- LAYOUT --- */
     .bastion-layout {
         max-width: 1400px; margin: 0 auto; padding: 100px 40px;
-        display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
+        display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px;
         position: relative; z-index: 20; background: var(--bg-black);
     }
     .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-orange); margin-bottom: 20px; display: block; }
     .section-heading { font-size: 2.5rem; font-weight: 300; line-height: 1.1; margin-bottom: 30px; }
-    .description-text { font-size: 1.1rem; color: var(--text-dim); font-weight: 300; }
-    .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 120px; }
+    .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
 
     .intro-summary { grid-column: 1 / 13; text-align: center; padding: 120px 0; border-bottom: 1px solid var(--border-thin); margin-bottom: 80px; }
     .intro-summary .description-text { max-width: 800px; margin: 0 auto; line-height: 1.6; font-size: 1.4rem; color: var(--text-main); }
 
-    /* --- GALLERY --- */
-    .gallery-container { grid-column: 5 / 13; display: flex; flex-direction: column; gap: 20px; }
-    .gallery-large { height: 600px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; }
-    .gallery-header { text-align: center; }
-    .text-next-to-gallery { grid-column: 1 / 4; align-self: center; }
+    /* DATA & GALLERY */
+    .data-side { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 30px; }
+    .gallery-side { grid-column: 6 / 13; }
+    .gallery-large { height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; }
     .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
     .slide.active { opacity: 1; }
 
-    /* --- ICONS --- */
+    .data-row { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; }
+    .gpx-btn { transition: all 0.3s ease; cursor: pointer; }
+    .gpx-btn:hover { transform: translateX(10px); }
+    .gpx-btn:hover svg { stroke: #fff; filter: drop-shadow(0 0 8px var(--accent-orange)); }
+    .gpx-btn:hover span { color: #fff !important; }
+
+    /* YOUTUBE */
+    .youtube-wrapper { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: center; }
+    .youtube-container { grid-column: 1 / 9; height: 500px; background: #000; border-radius: 10px; overflow: hidden; }
+    .youtube-container iframe { width: 100%; height: 100%; border: none; }
+    .youtube-info { grid-column: 10 / 13; }
+
+    /* ICONS */
     .round-brand-icon { 
         width: 60px; height: 60px; border: 2px solid var(--accent-orange); 
         border-radius: 50%; background: white; padding: 8px; 
         transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
         overflow: hidden; object-fit: contain; display: block; margin-bottom: 20px;
     }
-    .round-brand-icon:hover { transform: scale(1.15); box-shadow: 0 0 20px var(--accent-orange); }
 
-    .youtube-container { grid-column: 1 / 9; height: 550px; background: #000; border-radius: 10px; overflow: hidden; }
-    .text-next-to-video { grid-column: 10 / 13; align-self: center; }
+    /* STRAVA */
+    .strava-box { grid-column: 1 / 13; width: 100%; text-align: center; margin-bottom: 60px; }
+    .strava-embed-container { border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden; height: 450px; width: 100%; margin: 30px auto; max-width: 1000px; }
+    .strava-embed-container iframe { width: 100%; height: 100%; border: none; }
 
-    /* --- STRAVA --- */
-    .strava-box { grid-column: 3 / 11; min-height: 500px; margin-top: 50px; width: 100%; }
-    .strava-embed-container { border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden; height: 450px; width: 100%; }
-    .strava-embed-container iframe { width: 100% !important; height: 100% !important; border: none; }
-
-    .data-row { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; }
-
-    /* --- FOOTER --- */
-    footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 100px 0; text-align: center; }
-    .legal-disclaimer { color: #555; font-size: 0.75rem; margin-top: 40px; max-width: 700px; margin: 40px auto 0; line-height: 1.5; }
+    /* FOOTER (UNDER STRAVA) */
+    footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 80px 0; text-align: center; width: 100%; }
 
     @media (max-width: 900px) {
         .cursor-dot, .cursor-outline { display: none; }
         .hero-title { font-size: 16vw; }
-        .scroll-video { width: 100vw; left: 0 !important; }
+        .location-sub { font-size: 6vw; }
+        .scroll-video { width: 100vw; left: 0 !important; right: auto !important; opacity: 0.6 !important; }
         #movie2 { display: none; }
+        .scroll-hint svg { width: 40px; height: 30px; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
-        .grid-item { width: 100%; margin-bottom: 60px; }
-        .gallery-container { grid-column: 1 / 13; }
-        .text-next-to-video { order: 1; margin-bottom: 20px; }
-        .youtube-container { order: 2; height: 300px; }
-        .gallery-large { height: 300px; }
-        .strava-box { grid-column: 1 / 13; height: auto; }
+        .data-side, .gallery-side, .youtube-wrapper { width: 100%; }
+        .youtube-info { order: -1; margin-bottom: 20px; }
+        .gallery-large, .youtube-container { height: 350px; }
     }
   </style>
 </head>
@@ -123,13 +127,16 @@
   <div class="hero-scroll-container">
       <div class="sticky-frame">
           <h1 class="hero-title">MVDP<br>Track<span class="location-sub">Rosh HaAyin</span></h1>
+          
           <div class="scroll-hint">
-            <svg viewBox="0 0 24 24"><path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24" style="margin-top: -20px;"><path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <video id="movie1" class="scroll-video" autoplay muted loop playsinline preload="auto">
+
+          <video id="movie1" class="scroll-video" autoplay muted loop playsinline poster="ga1.jpeg">
               <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4">
           </video>
-          <video id="movie2" class="scroll-video" autoplay muted loop playsinline preload="auto">
+          <video id="movie2" class="scroll-video" autoplay muted loop playsinline>
               <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4">
           </video>
       </div>
@@ -138,106 +145,94 @@
   <main class="bastion-layout">
       
       <section class="intro-summary">
-          <span class="label">Introduction</span>
           <h2 class="section-heading" style="font-size: 4rem;">Welcome</h2>
-          <p class="description-text">
-            Track named after Mathieu van der Poel, <br>located in Rosh HaAyin forest.
-          </p>
+          <p class="description-text">Track named after Mathieu van der Poel, located in Rosh HaAyin forest.</p>
       </section>
 
-      <div class="grid-item text-next-to-gallery">
+      <div class="grid-item data-side">
           <span class="label">The Environment</span>
-          <h2 class="section-heading">Born in the forest.<br>Built for speed.</h2>
+          <h2 class="section-heading">Built for speed.</h2>
           
-          <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 30px;">
-              <div class="data-row">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/>
-                  </svg>
-                  <div>
-                      <span style="font-size: 1.1rem; font-weight: 700; display: block; line-height: 1.2; text-transform: uppercase;">Technical XC</span>
-                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Fast & technical cross-country flow</span>
-                  </div>
-              </div>
-
-              <div class="data-row">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17.8 20 14.1 20 10a8 8 0 1 0-16 0c0 4.1 2.7 17.8 8 11.7z"/></svg>
-                  <div>
-                      <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem; margin-left:2px; color:var(--accent-orange)">km</small></span>
-                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Distance</span>
-                  </div>
-              </div>
-              
-              <div class="data-row">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
-                  <div>
-                      <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem; margin-left:2px; color:var(--accent-orange)">m</small></span>
-                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Elevation</span>
-                  </div>
-              </div>
-
-              <div class="data-row">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7zM9 4v13M15 7v13"/></svg>
-                  <div>
-                      <span style="font-size: 1.1rem; font-weight: 700; display: block; line-height: 1.2; text-transform: uppercase;">Trail Marking</span>
-                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Follow the blue trail arrows</span>
-                  </div>
-              </div>
-
-              <a href="MVDP Single-Track.gpx" download class="data-row" style="transition: 0.3s;">
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                  <div>
-                      <span style="font-size: 1.1rem; font-weight: 700; display: block; line-height: 1.2; text-transform: uppercase;">GPX DATA</span>
-                      <span style="font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">Download track</span>
-                  </div>
-              </a>
-          </div>
-      </div>
-      
-      <div class="grid-item gallery-container">
-          <div class="gallery-header">
-              <span class="label">Gallery</span>
-          </div>
-          <div class="gallery-large">
-              <div class="slideshow-container">
-                <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
+          <div class="data-row">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
+              <div>
+                  <span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span>
+                  <span style="font-size: 0.7rem; color: var(--text-dim);">Fast cross-country flow</span>
               </div>
           </div>
-      </div>
 
-      <div class="grid-item youtube-container">
-          <iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe>
-      </div>
-      
-      <div class="grid-item text-next-to-video">
-          <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-brand-icon" alt="YouTube">
+          <div class="data-row">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17.8 20 14.1 20 10a8 8 0 1 0-16 0c0 4.1 2.7 17.8 8 11.7z"/></svg>
+              <div>
+                  <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem; color:var(--accent-orange)">km</small></span>
+                  <span style="font-size: 0.7rem; color: var(--text-dim);">Distance</span>
+              </div>
+          </div>
+
+          <div class="data-row">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
+              <div>
+                  <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem; color:var(--accent-orange)">m</small></span>
+                  <span style="font-size: 0.7rem; color: var(--text-dim);">Elevation</span>
+              </div>
+          </div>
+
+          <div class="data-row">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7zM9 4v13M15 7v13"/></svg>
+              <div>
+                  <span style="font-size: 1.1rem; font-weight: 700; display: block;">TRAIL MARKING</span>
+                  <span style="font-size: 0.7rem; color: var(--text-dim);">Follow blue arrows</span>
+              </div>
+          </div>
+
+          <a href="MVDP Single-Track.gpx" download class="data-row gpx-btn">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <div>
+                  <span style="font-size: 1.1rem; font-weight: 700; display: block; color: var(--accent-orange);">GPX DATA</span>
+                  <span style="font-size: 0.7rem; color: var(--text-dim);">Download track</span>
+              </div>
           </a>
-          <span class="label">Visual Journey</span>
-          <h2 class="section-heading">Watch the Flow</h2>
+      </div>
+
+      <div class="grid-item gallery-side">
+          <div style="text-align: center; margin-bottom: 20px;"><span class="label">Gallery</span></div>
+          <div class="gallery-large">
+              <img src="ga1.jpeg" class="slide active">
+              <img src="ga2.jpeg" class="slide">
+              <img src="ga3.jpeg" class="slide">
+          </div>
+      </div>
+
+      <div class="grid-item youtube-wrapper">
+          <div class="youtube-container">
+              <iframe src="https://www.youtube.com/embed/JHL76AN1cAM" allowfullscreen></iframe>
+          </div>
+          <div class="youtube-info">
+              <a href="https://www.youtube.com/watch?v=JHL76AN1cAM" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" class="round-brand-icon" alt="YouTube">
+              </a>
+              <span class="label">Visual Journey</span>
+              <h2 class="section-heading">Watch the Flow</h2>
+          </div>
       </div>
 
       <div class="grid-item strava-box">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <a href="https://www.strava.com/segments/40662774" target="_blank">
-                <img src="strava_icon.png" class="round-brand-icon" alt="Strava" style="margin: 0 auto 15px;">
-            </a>
-            <span class="label">Performance</span>
-            <h2 class="section-heading" style="font-size: 1.8rem;">Segment Data</h2>
-          </div>
+          <a href="https://www.strava.com/segments/40662774" target="_blank">
+              <img src="strava_icon.png" class="round-brand-icon" alt="Strava" style="margin: 0 auto 15px;">
+          </a>
+          <span class="label">Performance</span>
+          <h2 class="section-heading">Segment Data</h2>
           <div class="strava-embed-container">
               <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
           </div>
       </div>
 
       <footer>
-          <a href="mailto:van.der0nothing@gmail.com" style="display: inline-block;">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" class="round-brand-icon" style="margin: 0 auto 20px auto;">
-          </a>
-          <p style="font-size: 1.1rem; font-weight: 300; margin: 0;">van.der0nothing@gmail.com</p>
-          <p style="color: var(--accent-orange); margin-top: 40px; font-weight: 700;">RIDE, ENJOY, AND KEEP THE FOREST CLEAN.</p>
-          <div class="legal-disclaimer">
-              Riding the trail is at the rider's own responsibility. The creators of the track or the website are not responsible for any damage or injury. Please wear a helmet and ride within your skill level.
+          <a href="mailto:van.der0nothing@gmail.com"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" class="round-brand-icon" style="margin: 0 auto 20px;"></a>
+          <p style="font-size: 1.2rem;">van.der0nothing@gmail.com</p>
+          <p style="color: var(--accent-orange); margin-top: 30px; font-weight: 700; letter-spacing: 2px;">KEEP THE FOREST CLEAN.</p>
+          <div class="legal-disclaimer" style="color: #555; font-size: 0.75rem; margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+            Riding is at own responsibility. Always wear a helmet and respect the nature.
           </div>
       </footer>
   </main>
@@ -245,6 +240,8 @@
   <script>
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
+    
+    // Cursor Logic
     if (window.innerWidth > 900) {
         window.addEventListener('mousemove', (e) => {
             dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
@@ -252,50 +249,53 @@
         });
     }
 
+    // Scroll Video Logic
     window.addEventListener('scroll', () => {
-        if (window.innerWidth <= 900) return;
+        const isMobile = window.innerWidth <= 900;
         const scrollY = window.scrollY;
         const vh = window.innerHeight;
         const m1 = document.getElementById('movie1');
         const m2 = document.getElementById('movie2');
 
-        if (scrollY > vh * 0.05 && scrollY <= vh * 0.75) {
+        if (isMobile) {
+            // Mobile: Only Movie 1 is shown
             m1.style.opacity = "0.6";
-        } else if (scrollY > vh * 0.75 && scrollY <= vh * 1.5) {
-            const fadeOut = Math.max(0, 0.6 - ((scrollY - vh * 0.75) / (vh * 0.5)));
-            m1.style.opacity = fadeOut;
-        } else {
-            m1.style.opacity = "0";
+            return;
         }
 
-        if (scrollY > vh * 0.75 && scrollY <= vh * 1.6) {
-            const progress = (scrollY - vh * 0.75) / (vh * 0.6); 
-            const moveX = Math.min(0, -100 + (progress * 100)); 
-            m2.style.opacity = Math.min(0.6, progress * 1.5);
-            m2.style.transform = `translateX(${moveX}%)`;
+        // PC Scroll Sequence
+        // 0 to 0.8vh: Movie 1 fades in (Right)
+        if (scrollY < vh * 0.8) {
+            m1.style.opacity = Math.min(0.6, scrollY / (vh * 0.5));
+            m1.style.transform = "translateX(0)";
+            m2.style.opacity = "0";
         } 
-        else if (scrollY > vh * 1.6) {
-            m2.style.opacity = "0.6";
-            m2.style.transform = `translateX(0%)`;
+        // 0.8vh to 1.6vh: Movie 1 fades out, Movie 2 slides in (Left)
+        else if (scrollY >= vh * 0.8 && scrollY < vh * 1.8) {
+            m1.style.opacity = Math.max(0, 0.6 - (scrollY - vh * 0.8) / (vh * 0.4));
+            
+            const m2Progress = (scrollY - vh * 0.8) / (vh * 0.8);
+            m2.style.opacity = Math.min(0.6, m2Progress * 1.5);
+            const moveX = Math.min(0, -100 + (m2Progress * 100));
+            m2.style.transform = `translateX(${moveX}%)`;
         }
         else {
-            m2.style.opacity = "0";
-            m2.style.transform = `translateX(-100%)`;
+            m1.style.opacity = "0";
+            m2.style.opacity = "0.6";
+            m2.style.transform = "translateX(0)";
         }
     });
 
-    function runSlideshow() {
-        const slides = document.querySelectorAll('.slide');
-        let current = 0;
+    // Gallery Slideshow
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    setInterval(() => {
         if(slides.length > 0) {
-            setInterval(() => {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 4000);
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
         }
-    }
-    runSlideshow();
+    }, 4000);
   </script>
 </body>
 </html>
