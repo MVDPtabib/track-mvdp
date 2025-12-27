@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MVDP | Engineering Performance</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <style>
     :root {
         --bg-black: #0b0b0b;
@@ -77,9 +78,9 @@
     }
     .data-row.is-visible { opacity: 1; transform: translateY(0); }
     
-    /* Fast Hover */
+    /* FAST Hover Reaction for ALL rows */
     .data-row svg { stroke: var(--accent-blue); min-width: 28px; transition: transform 0.2s ease; }
-    .data-row span { transition: color 0.2s ease; }
+    .data-row span, .data-row div { transition: color 0.2s ease, transform 0.2s ease; }
     .data-row:hover { transform: translateX(10px); transition: transform 0.2s ease; }
     .data-row:hover span { color: var(--accent-blue); }
     .data-row:hover svg { transform: scale(1.1); }
@@ -87,7 +88,7 @@
     /* --- GALLERY --- */
     .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
     .gallery-side { grid-column: 7 / 13; }
-    .gallery-large { height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; }
+    .gallery-large { height: 550px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; cursor: pointer; }
     .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s ease; }
     .slide.active { opacity: 1; }
 
@@ -145,7 +146,7 @@
 
           <div class="data-row" style="transition-delay: 0.2s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">STYLE</span></div>
+              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">MEDIUM LEVEL</span></div>
           </div>
 
           <a href="https://maps.google.com" target="_blank" class="data-row" style="transition-delay: 0.5s;">
@@ -155,12 +156,12 @@
 
           <div class="data-row" style="transition-delay: 0.8s;">
                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M2 12h20M2 12l6-6M2 12l6 6"/></svg>
-              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem;">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
+              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;"><span class="count-up" data-target="3.1">0</span><small style="font-size: 0.9rem;">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
           </div>
 
           <div class="data-row" style="transition-delay: 1.1s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
-              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem;">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
+              <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;"><span class="count-up" data-target="98">0</span><small style="font-size: 0.9rem;">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
           </div>
 
           <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 1.4s;">
@@ -180,9 +181,11 @@
       </section>
 
       <section class="grid-item gallery-side reveal-on-scroll">
-          <div class="label">Gallery</div>
+          <div class="label">Gallery (Click to Expand)</div>
           <div class="gallery-large">
-              <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
+              <a href="ga1.jpeg" class="glightbox"><img src="ga1.jpeg" class="slide active"></a>
+              <a href="ga2.jpeg" class="glightbox"><img src="ga2.jpeg" class="slide"></a>
+              <a href="ga3.jpeg" class="glightbox"><img src="ga3.jpeg" class="slide"></a>
           </div>
       </section>
 
@@ -222,6 +225,7 @@
       </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
   <script>
     // Cursor
     const dot = document.querySelector('.cursor-dot'), outline = document.querySelector('.cursor-outline');
@@ -230,18 +234,42 @@
         outline.animate({ left: e.clientX - 20 + 'px', top: e.clientY - 20 + 'px' }, { duration: 500, fill: "forwards" });
     });
 
-    // Specs Animation
+    // Count Up Function
+    function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const val = (progress * (end - start) + start);
+            obj.innerHTML = end % 1 === 0 ? Math.floor(val) : val.toFixed(1);
+            if (progress < 1) { window.requestAnimationFrame(step); }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    // Specs & Counters Animation
     const drawingLine = document.getElementById('drawingLine');
     const specsRows = document.querySelectorAll('.specs-section .data-row');
+    const counters = document.querySelectorAll('.count-up');
+    let startedCounters = false;
+
     const specsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 drawingLine.style.height = '100%';
                 specsRows.forEach(row => row.classList.add('is-visible'));
+                
+                if(!startedCounters) {
+                    counters.forEach(c => animateValue(c, 0, parseFloat(c.dataset.target), 2000));
+                    startedCounters = true;
+                }
             }
         });
     }, { threshold: 0.25 });
     specsObserver.observe(document.getElementById('specsTrigger'));
+
+    // GLightbox Init
+    const lightbox = GLightbox({ selector: '.glightbox' });
 
     // Video Scroll Logic
     window.addEventListener('scroll', () => {
@@ -249,12 +277,15 @@
         const m1 = document.getElementById('movie1'), m2 = document.getElementById('movie2');
         if (window.innerWidth < 900) return;
         if (scrollY < vh * 0.8) {
-            m1.style.opacity = Math.min(0.6, scrollY / (vh * 0.5)); m2.style.opacity = "0";
+            if(m1) m1.style.opacity = Math.min(0.6, scrollY / (vh * 0.5)); 
+            if(m2) m2.style.opacity = "0";
         } else {
-            m1.style.opacity = Math.max(0, 0.6 - (scrollY - vh * 0.8) / (vh * 0.4));
+            if(m1) m1.style.opacity = Math.max(0, 0.6 - (scrollY - vh * 0.8) / (vh * 0.4));
             const progress = (scrollY - vh * 0.8) / (vh * 0.8);
-            m2.style.opacity = Math.min(0.6, progress * 1.5);
-            m2.style.transform = `translateX(${Math.min(0, -100 + (progress * 100))}%)`;
+            if(m2) {
+                m2.style.opacity = Math.min(0.6, progress * 1.5);
+                m2.style.transform = `translateX(${Math.min(0, -100 + (progress * 100))}%)`;
+            }
         }
     });
 
@@ -264,16 +295,14 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
 
-    // Gallery
+    // Gallery Auto-slide (Fallback while not in Lightbox)
     const slides = document.querySelectorAll('.slide');
     let current = 0;
-    if(slides.length > 0) {
-        setInterval(() => {
-            slides[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
-        }, 4000);
-    }
+    setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+    }, 4000);
   </script>
 </body>
 </html>
