@@ -28,7 +28,7 @@
     .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; }
     .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-orange); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; }
 
-    /* --- HERO DUAL SIDE SCROLL (225vh) --- */
+    /* --- HERO --- */
     .hero-scroll-container { height: 225vh; position: relative; }
     .sticky-frame {
         position: sticky; top: 0; height: 100vh; width: 100vw;
@@ -41,33 +41,21 @@
     }
     .location-sub { display: block; font-size: 3vw; font-weight: 300; color: var(--accent-orange); letter-spacing: 4px; margin-top: 15px; }
 
-    /* --- SCROLL HINT (ARROWS) --- */
     .scroll-hint {
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        opacity: 0.4;
-        z-index: 10;
-        animation: bounce 2s infinite;
+        margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 5px;
+        opacity: 0.4; z-index: 10; animation: bounce 2s infinite;
     }
     .scroll-hint svg { width: 30px; height: 30px; stroke: var(--text-main); fill: none; stroke-width: 1; }
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-        40% { transform: translateY(-10px); }
-        60% { transform: translateY(-5px); }
-    }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
 
     .scroll-video {
         position: absolute; top: 0; width: 50vw; height: 100vh;
         object-fit: cover; z-index: 5; transition: opacity 0.4s ease-out; opacity: 0;
     }
-    
     #movie1 { right: 0; }
     #movie2 { left: 0; transform: translateX(-100%); transition: opacity 0.4s, transform 0.1s linear; }
 
-    /* --- CONTENT GRID --- */
+    /* --- LAYOUT --- */
     .bastion-layout {
         max-width: 1400px; margin: 0 auto; padding: 100px 40px;
         display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
@@ -78,27 +66,18 @@
     .description-text { font-size: 1.1rem; color: var(--text-dim); font-weight: 300; }
     .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 120px; }
 
-    .intro-summary { 
-        grid-column: 1 / 13; 
-        text-align: center; 
-        padding: 120px 0; 
-        border-bottom: 1px solid var(--border-thin); 
-        margin-bottom: 80px; 
-    }
-    .intro-summary .description-text {
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.6;
-        font-size: 1.4rem;
-    }
+    .intro-summary { grid-column: 1 / 13; text-align: center; padding: 120px 0; border-bottom: 1px solid var(--border-thin); margin-bottom: 80px; }
+    .intro-summary .description-text { max-width: 800px; margin: 0 auto; line-height: 1.6; font-size: 1.4rem; color: var(--text-main); }
 
-    .gallery-large { grid-column: 5 / 13; height: 600px; background: #151515; overflow: hidden; position: relative; }
+    /* --- GALLERY --- */
+    .gallery-container { grid-column: 5 / 13; display: flex; flex-direction: column; gap: 20px; }
+    .gallery-large { height: 600px; background: #151515; overflow: hidden; position: relative; border-radius: 4px; }
+    .gallery-header { text-align: center; }
     .text-next-to-gallery { grid-column: 1 / 4; align-self: center; }
-    .slideshow-container { position: relative; width: 100%; height: 100%; transition: transform 0.8s; }
     .slide { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1.5s; }
     .slide.active { opacity: 1; }
 
-    /* --- BRAND ICONS --- */
+    /* --- ICONS --- */
     .round-brand-icon { 
         width: 60px; height: 60px; border: 2px solid var(--accent-orange); 
         border-radius: 50%; background: white; padding: 8px; 
@@ -110,30 +89,29 @@
     .youtube-container { grid-column: 1 / 9; height: 550px; background: #000; border-radius: 10px; overflow: hidden; }
     .text-next-to-video { grid-column: 10 / 13; align-self: center; }
 
-    /* Fix Alignment for Navigation vs Strava */
-    .navigation-box { grid-column: 1 / 5; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 40px; }
-    .strava-box { grid-column: 6 / 13; height: 450px; display: flex; flex-direction: column; justify-content: flex-start; }
+    /* --- STRAVA --- */
+    .strava-box { grid-column: 3 / 11; min-height: 500px; margin-top: 50px; width: 100%; }
+    .strava-embed-container { border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden; height: 450px; width: 100%; }
+    .strava-embed-container iframe { width: 100% !important; height: 100% !important; border: none; }
 
-    .download-link-row {
-        display: flex; align-items: center; gap: 15px; text-decoration: none; transition: 0.3s;
-    }
-    .download-link-row:hover { opacity: 0.7; }
-
-    iframe { width: 100%; height: 100%; border: none; }
+    .data-row { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; }
 
     /* --- FOOTER --- */
     footer { grid-column: 1 / 13; border-top: 1px solid var(--border-thin); padding: 100px 0; text-align: center; }
-    .legal-disclaimer { color: #555; font-size: 0.75rem; margin-top: 40px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+    .legal-disclaimer { color: #555; font-size: 0.75rem; margin-top: 40px; max-width: 700px; margin: 40px auto 0; line-height: 1.5; }
 
     @media (max-width: 900px) {
         .cursor-dot, .cursor-outline { display: none; }
         .hero-title { font-size: 16vw; }
-        .scroll-video { width: 100vw; left: 0 !important; right: 0 !important; transform: none !important; }
-        #movie1 { opacity: 0.25 !important; }
-        #movie2 { display: none !important; }
+        .scroll-video { width: 100vw; left: 0 !important; }
+        #movie2 { display: none; }
         .bastion-layout { display: flex; flex-direction: column; padding: 40px 20px; }
-        .grid-item { width: 100%; margin-bottom: 60px; padding-top: 40px !important; }
-        .gallery-large, .youtube-container, .strava-box { height: 300px; }
+        .grid-item { width: 100%; margin-bottom: 60px; }
+        .gallery-container { grid-column: 1 / 13; }
+        .text-next-to-video { order: 1; margin-bottom: 20px; }
+        .youtube-container { order: 2; height: 300px; }
+        .gallery-large { height: 300px; }
+        .strava-box { grid-column: 1 / 13; height: auto; }
     }
   </style>
 </head>
@@ -145,15 +123,12 @@
   <div class="hero-scroll-container">
       <div class="sticky-frame">
           <h1 class="hero-title">MVDP<br>Track<span class="location-sub">Rosh HaAyin</span></h1>
-          
           <div class="scroll-hint">
             <svg viewBox="0 0 24 24"><path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          
           <video id="movie1" class="scroll-video" autoplay muted loop playsinline preload="auto">
               <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4">
           </video>
-          
           <video id="movie2" class="scroll-video" autoplay muted loop playsinline preload="auto">
               <source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4">
           </video>
@@ -166,55 +141,67 @@
           <span class="label">Introduction</span>
           <h2 class="section-heading" style="font-size: 4rem;">Welcome</h2>
           <p class="description-text">
-            A track named after <span style="color:var(--accent-orange); font-weight:700;">Mathieu van der Poel</span>, <br>located in the <span style="color:var(--accent-orange); font-weight:700;">Rosh HaAyin forest</span>.
+            Track named after Mathieu van der Poel, <br>located in Rosh HaAyin forest.
           </p>
       </section>
 
       <div class="grid-item text-next-to-gallery">
           <span class="label">The Environment</span>
           <h2 class="section-heading">Born in the forest.<br>Built for speed.</h2>
-          <p class="description-text">A technical XC trail in Rosh HaAyin forest.</p>
           
-          <div style="display: flex; flex-direction: column; gap: 25px; margin-top: 30px;">
-              <div style="display: flex; align-items: center; gap: 15px;">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="10" r="3"/>
-                    <path d="M12 21.7C17.3 17.8 20 14.1 20 10a8 8 0 1 0-16 0c0 4.1 2.7 17.8 8 11.7z"/>
+          <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 30px;">
+              <div class="data-row">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/>
                   </svg>
                   <div>
-                      <span style="font-size: 2.2rem; font-weight: 700; color: var(--text-main); line-height: 1;">3.1<span style="color:var(--accent-orange); font-size:1.1rem; margin-left:2px;">km</span></span>
-                      <span style="display:block; font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;">Distance</span>
-                  </div>
-              </div>
-              
-              <div style="display: flex; align-items: center; gap: 15px;">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 20h16"/>
-                    <path d="M4 20l7-13 3 5 2-3 4 11"/>
-                  </svg>
-                  <div>
-                      <span style="font-size: 2.2rem; font-weight: 700; color: var(--text-main); line-height: 1;">98<span style="color:var(--accent-orange); font-size:1.1rem; margin-left:2px;">m</span></span>
-                      <span style="display:block; font-size: 0.75rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;">Elevation</span>
+                      <span style="font-size: 1.1rem; font-weight: 700; display: block; line-height: 1.2; text-transform: uppercase;">Technical XC</span>
+                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Fast & technical cross-country flow</span>
                   </div>
               </div>
 
-              <a href="MVDP Single-Track.gpx" download class="download-link-row">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                  </svg>
+              <div class="data-row">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17.8 20 14.1 20 10a8 8 0 1 0-16 0c0 4.1 2.7 17.8 8 11.7z"/></svg>
                   <div>
-                      <span style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); line-height: 1; text-transform: uppercase; letter-spacing: 1px;">GPX Data</span>
-                      <span style="display:block; font-size: 0.75rem; color: var(--accent-orange); letter-spacing: 1px; text-transform: uppercase;">Download Track</span>
+                      <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">3.1<small style="font-size: 0.9rem; margin-left:2px; color:var(--accent-orange)">km</small></span>
+                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Distance</span>
+                  </div>
+              </div>
+              
+              <div class="data-row">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
+                  <div>
+                      <span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;">98<small style="font-size: 0.9rem; margin-left:2px; color:var(--accent-orange)">m</small></span>
+                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Elevation</span>
+                  </div>
+              </div>
+
+              <div class="data-row">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7zM9 4v13M15 7v13"/></svg>
+                  <div>
+                      <span style="font-size: 1.1rem; font-weight: 700; display: block; line-height: 1.2; text-transform: uppercase;">Trail Marking</span>
+                      <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Follow the blue trail arrows</span>
+                  </div>
+              </div>
+
+              <a href="MVDP Single-Track.gpx" download class="data-row" style="transition: 0.3s;">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  <div>
+                      <span style="font-size: 1.1rem; font-weight: 700; display: block; line-height: 1.2; text-transform: uppercase;">GPX DATA</span>
+                      <span style="font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; letter-spacing: 1px;">Download track</span>
                   </div>
               </a>
           </div>
       </div>
       
-      <div class="grid-item gallery-large" id="mainGallery">
-          <div class="slideshow-container">
-            <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
+      <div class="grid-item gallery-container">
+          <div class="gallery-header">
+              <span class="label">Gallery</span>
+          </div>
+          <div class="gallery-large">
+              <div class="slideshow-container">
+                <img src="ga1.jpeg" class="slide active"><img src="ga2.jpeg" class="slide"><img src="ga3.jpeg" class="slide">
+              </div>
           </div>
       </div>
 
@@ -230,19 +217,15 @@
           <h2 class="section-heading">Watch the Flow</h2>
       </div>
 
-      <div class="grid-item navigation-box">
-          <img src="bluearrow.png" alt="Navigation" class="round-brand-icon">
-          <span class="label">Navigation</span>
-          <h2 class="section-heading">Follow the Path</h2>
-          <p class="description-text">Follow the blue arrows on trees.</p>
-      </div>
-
       <div class="grid-item strava-box">
-          <a href="https://www.strava.com/segments/40662774" target="_blank">
-            <img src="strava_icon.png" class="round-brand-icon" alt="Strava">
-          </a>
-          <span class="label">Performance Data</span>
-          <div style="border: 1px solid var(--border-thin); border-radius: 15px; overflow: hidden; height: 100%;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <a href="https://www.strava.com/segments/40662774" target="_blank">
+                <img src="strava_icon.png" class="round-brand-icon" alt="Strava" style="margin: 0 auto 15px;">
+            </a>
+            <span class="label">Performance</span>
+            <h2 class="section-heading" style="font-size: 1.8rem;">Segment Data</h2>
+          </div>
+          <div class="strava-embed-container">
               <iframe src="https://www.strava.com/segments/40662774/embed"></iframe>
           </div>
       </div>
