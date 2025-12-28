@@ -29,8 +29,8 @@
     .cursor-dot { width: 8px; height: 8px; background-color: var(--accent-blue); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.1s; }
     .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--accent-blue); position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998; opacity: 0.5; transition: transform 0.15s; }
 
-    /* --- HERO DRAMA --- */
-    .hero-scroll-container { height: 400vh; position: relative; } /* Increased height for better scroll control */
+    /* --- HERO --- */
+    .hero-scroll-container { height: 400vh; position: relative; }
     .sticky-frame {
         position: sticky; top: 0; height: 100vh; width: 100vw;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -41,15 +41,31 @@
     .hero-intro { font-size: 2.5vw; font-weight: 300; color: var(--text-main); letter-spacing: 1px; margin-bottom: 10px; opacity: 0; transform: translateY(20px); transition: all 1s ease; }
     .hero-main { font-size: 7vw; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 15px; color: white; opacity: 0; filter: blur(15px); transform: scale(0.8); transition: all 1.2s cubic-bezier(0.2, 0, 0.2, 1); }
     .location-sub { font-size: 2vw; font-weight: 700; color: var(--accent-blue); letter-spacing: 3px; text-transform: uppercase; opacity: 0; filter: blur(10px); transition: all 1s ease; }
-
-    /* Initial Reveal for Line 1 */
     .hero-intro.revealed { opacity: 1; transform: translateY(0); }
 
     .scroll-video { position: absolute; top: 0; width: 50vw; height: 100vh; object-fit: cover; z-index: 5; transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; }
     #movie1 { right: 0; }
     #movie2 { left: 0; transform: translateX(-100%); filter: blur(5px); }
 
-    /* --- BASTION LAYOUT --- */
+    /* --- SCROLL ARROWS --- */
+    .scroll-arrows {
+        position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+        display: flex; flex-direction: column; align-items: center; z-index: 20; opacity: 0; transition: opacity 0.5s ease;
+    }
+    .scroll-arrows.visible { opacity: 1; }
+    .scroll-arrows span {
+        display: block; width: 20px; height: 20px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue);
+        transform: rotate(45deg); margin: -5px; animation: scrollAnim 2s infinite;
+    }
+    .scroll-arrows span:nth-child(2) { animation-delay: 0.2s; }
+    .scroll-arrows span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes scrollAnim {
+        0% { opacity: 0; transform: rotate(45deg) translate(-10px, -10px); }
+        50% { opacity: 1; }
+        100% { opacity: 0; transform: rotate(45deg) translate(10px, 10px); }
+    }
+
+    /* --- LAYOUT --- */
     .bastion-layout { max-width: 1400px; margin: 0 auto; padding: 100px 40px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; }
     .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-blue); margin-bottom: 25px; display: block; }
 
@@ -60,14 +76,13 @@
     .char { display: inline-block; transform: translateY(100%); opacity: 0; transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.5s; }
     .welcome-main.is-visible .char { transform: translateY(0); opacity: 1; }
 
-    /* --- SPECS --- */
+    /* --- SPECS (SYNCED) --- */
     .specs-section { grid-column: 1 / 6; position: relative; padding-left: 35px; margin-bottom: 80px; }
-    .specs-line { position: absolute; left: 0; top: 0; width: 2px; background-color: var(--accent-blue); height: 0; transition: height 2.5s cubic-bezier(0.4, 0, 0.2, 1); }
-    .data-row { display: flex; align-items: center; gap: 20px; text-decoration: none; color: white; margin-bottom: 35px; opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
+    .specs-line { position: absolute; left: 0; top: 0; width: 2px; background-color: var(--accent-blue); height: 0; transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .data-row { display: flex; align-items: center; gap: 20px; text-decoration: none; color: white; margin-bottom: 35px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .data-row.is-visible { opacity: 1; transform: translateY(0); }
     .data-row svg { stroke: var(--accent-blue); min-width: 28px; transition: 0.2s ease; }
     .data-row:hover { transform: translateX(10px); }
-    .data-row:hover span { color: var(--accent-blue); }
 
     /* --- GALLERY --- */
     .grid-item { position: relative; border-top: 1px solid var(--border-thin); padding-top: 40px; margin-bottom: 80px; }
@@ -111,6 +126,11 @@
             <span class="hero-main" id="h2">Now it has a name</span>
             <span class="location-sub" id="h3">MVDP - Rosh HaAyin</span>
           </div>
+          
+          <div class="scroll-arrows" id="scrollArrows">
+              <span></span><span></span><span></span>
+          </div>
+
           <video id="movie1" class="scroll-video" autoplay muted loop playsinline><source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766765976/Movie1_-_Trim_rugrpu.mp4" type="video/mp4"></video>
           <video id="movie2" class="scroll-video" autoplay muted loop playsinline><source src="https://res.cloudinary.com/dgu5tpwgu/video/upload/v1766766013/Movie_2_-_Trim_-_Trim_-_Trim_z0kmot.mp4" type="video/mp4"></video>
       </div>
@@ -126,31 +146,27 @@
       <section class="specs-section" id="specsTrigger">
           <div class="specs-line" id="drawingLine"></div>
           <div class="label">Technical Specs</div>
-          <div class="data-row" style="transition-delay: 0.2s;">
+          <div class="data-row" style="transition-delay: 0.1s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-2-3 3-3h3l2 2"/></svg>
               <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">TECHNICAL XC</span><span style="font-size: 0.7rem; color: var(--text-dim);">MEDIUM LEVEL</span></div>
           </div>
-          <a href="https://maps.google.com" target="_blank" class="data-row" style="transition-delay: 0.5s;">
+          <a href="https://maps.google.com" target="_blank" class="data-row" style="transition-delay: 0.3s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V15"/></svg>
               <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">STARTING POINT</span><span style="font-size: 0.7rem; color: var(--text-dim);">OPEN IN GOOGLE MAPS</span></div>
           </a>
-          <div class="data-row" style="transition-delay: 0.8s;">
+          <div class="data-row" style="transition-delay: 0.5s;">
                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M2 12h20M2 12l6-6M2 12l6 6"/></svg>
               <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;"><span class="count-up" data-target="3.1">0</span><small style="font-size: 0.9rem;">km</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">DISTANCE</span></div>
           </div>
-          <div class="data-row" style="transition-delay: 1.1s;">
+          <div class="data-row" style="transition-delay: 0.7s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 20h16M4 20l7-13 3 5 2-3 4 11"/></svg>
               <div><span style="font-size: 1.8rem; font-weight: 700; display: block; line-height: 1;"><span class="count-up" data-target="98">0</span><small style="font-size: 0.9rem;">m</small></span><span style="font-size: 0.7rem; color: var(--text-dim);">ELEVATION</span></div>
           </div>
-          <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 1.4s;">
+          <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 0.9s;">
                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">WAZE LOCATION</span><span style="font-size: 0.7rem; color: var(--text-dim);">NAVIGATE TO TRAIL</span></div>
           </a>
-          <a href="https://waze.com/ul/hsv8yeezgr" target="_blank" class="data-row" style="transition-delay: 1.7s;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
-              <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">PARKING AREA</span><span style="font-size: 0.7rem; color: var(--text-dim);">ROSH HAAYIN FOREST</span></div>
-          </a>
-          <a href="activity_21303441846 (1).gpx" download class="data-row" style="transition-delay: 2.0s;">
+          <a href="activity_21303441846 (1).gpx" download class="data-row" style="transition-delay: 1.1s;">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               <div><span style="font-size: 1.1rem; font-weight: 700; display: block;">GPX DATA</span><span style="font-size: 0.7rem; color: var(--text-dim);">DOWNLOAD TRACK FILE</span></div>
           </a>
@@ -162,6 +178,8 @@
               <a href="ga1.jpeg" class="glightbox active"><img src="ga1.jpeg"></a>
               <a href="ga2.jpeg" class="glightbox"><img src="ga2.jpeg"></a>
               <a href="ga3.jpeg" class="glightbox"><img src="ga3.jpeg"></a>
+              <a href="ga4.jpeg" class="glightbox"><img src="ga4.jpeg"></a>
+              <a href="ga5.jpeg" class="glightbox"><img src="ga5.jpeg"></a>
           </div>
       </section>
 
@@ -194,9 +212,7 @@
           <p>van.der0nothing@gmail.com</p>
           <div class="disclaimer-box">
               <h4>Legal Disclaimer & Safety Notice</h4>
-              <p>
-                  Extreme sports and mountain biking involve inherent risks of serious injury or death. This website provides track data for informational purposes only. The MVDP Rosh HaAyin trail consists of technical features and natural obstacles. By using this track, riders acknowledge that they are solely responsible for their own safety and must ride within their skill level. Always wear a certified helmet and protective gear. Trail conditions may change due to weather or erosion without notice. The creators and administrators of this site disclaim any and all liability for accidents, injuries, or property damage sustained while riding this segment. Ride with respect, keep the forest clean, and stay alert.
-              </p>
+              <p>Extreme sports and mountain biking involve inherent risks of serious injury or death. This website provides track data for informational purposes only. The MVDP Rosh HaAyin trail consists of technical features and natural obstacles. By using this track, riders acknowledge that they are solely responsible for their own safety and must ride within their skill level. Always wear a certified helmet and protective gear. Trail conditions may change due to weather or erosion without notice. The creators and administrators of this site disclaim any and all liability for accidents, injuries, or property damage sustained while riding this segment. Ride with respect, keep the forest clean, and stay alert.</p>
           </div>
       </footer>
   </main>
@@ -232,24 +248,23 @@
             if (en.isIntersecting) {
                 en.target.classList.add('is-visible');
                 if (en.target.id === 'specsTrigger') {
+                    // Sync Line and Data Rows
                     document.getElementById('drawingLine').style.height = '100%';
+                    document.querySelectorAll('#specsTrigger .data-row').forEach(row => row.classList.add('is-visible'));
                     if (!countersDone) {
                         document.querySelectorAll('.count-up').forEach(c => countUp(c, 0, parseFloat(c.dataset.target), 2000));
                         countersDone = true;
                     }
                 }
                 if (en.target.classList.contains('welcome-container')) {
-                    document.querySelectorAll('.char').forEach((c, i) => {
-                        c.style.transitionDelay = `${i * 0.03}s`;
-                    });
+                    document.querySelectorAll('.char').forEach((c, i) => { c.style.transitionDelay = `${i * 0.03}s`; });
                     document.getElementById('waveText').classList.add('is-visible');
                 }
             }
         });
     }, { threshold: 0.2 });
-    document.querySelectorAll('.reveal-on-scroll, .specs-section, .data-row').forEach(el => obs.observe(el));
+    document.querySelectorAll('.reveal-on-scroll, .specs-section').forEach(el => obs.observe(el));
 
-    // Gallery & Lightbox
     const lightbox = GLightbox({ selector: '.glightbox' });
     const galleryLinks = document.querySelectorAll('.gallery-large a');
     let curIdx = 0;
@@ -259,40 +274,38 @@
         galleryLinks[curIdx].classList.add('active');
     }, 4000);
 
-    // Initial Line 1 reveal
-    window.onload = () => { document.getElementById('h1').classList.add('revealed'); };
+    // Initial load reveals
+    window.onload = () => { 
+        document.getElementById('h1').classList.add('revealed'); 
+        document.getElementById('scrollArrows').classList.add('visible');
+    };
 
-    // Scroll Dramatic Logic
     window.addEventListener('scroll', () => {
         const y = window.scrollY, vh = window.innerHeight;
         const h2 = document.getElementById('h2'), h3 = document.getElementById('h3');
         const m1 = document.getElementById('movie1'), m2 = document.getElementById('movie2');
-        
+        const arrows = document.getElementById('scrollArrows');
+
+        // Hide arrows when scrolling starts
+        if (y > 50) arrows.classList.remove('visible');
+        else arrows.classList.add('visible');
+
         if (window.innerWidth < 900) return;
 
-        // Sequence: Line 2 appears
         let p2 = Math.min(1, Math.max(0, (y - vh*0.2) / (vh*0.5)));
-        h2.style.opacity = p2;
-        h2.style.filter = `blur(${20 - p2*20}px)`;
-        h2.style.transform = `scale(${0.8 + p2*0.2})`;
+        h2.style.opacity = p2; h2.style.filter = `blur(${20 - p2*20}px)`; h2.style.transform = `scale(${0.8 + p2*0.2})`;
 
-        // Sequence: Line 3 appears
         let p3 = Math.min(1, Math.max(0, (y - vh*0.7) / (vh*0.5)));
-        h3.style.opacity = p3;
-        h3.style.filter = `blur(${15 - p3*15}px)`;
-        h3.style.transform = `translateY(${20 - p3*20}px)`;
+        h3.style.opacity = p3; h3.style.filter = `blur(${15 - p3*15}px)`; h3.style.transform = `translateY(${20 - p3*20}px)`;
 
-        // Sequence: Movie transitions
         if (y < vh * 1.5) {
-            m1.style.opacity = Math.min(0.6, y / (vh * 0.5));
-            m2.style.opacity = "0";
-            m2.style.transform = "translateX(-100%)";
+            m1.style.opacity = Math.min(0.6, y / (vh * 0.5)); m2.style.opacity = "0";
         } else {
             m1.style.opacity = Math.max(0, 0.6 - (y - vh * 1.8) / (vh * 0.5));
-            let videoProgress = Math.min(1, (y - vh * 1.8) / (vh * 1.0));
-            m2.style.opacity = Math.min(0.6, videoProgress * 1.5);
-            m2.style.transform = `translateX(${-100 + (videoProgress * 100)}%)`;
-            m2.style.filter = `blur(${Math.max(0, 5 - videoProgress * 10)}px)`;
+            let vP = Math.min(1, (y - vh * 1.8) / (vh * 1.0));
+            m2.style.opacity = Math.min(0.6, vP * 1.5);
+            m2.style.transform = `translateX(${-100 + (vP * 100)}%)`;
+            m2.style.filter = `blur(${Math.max(0, 5 - vP * 10)}px)`;
         }
     });
   </script>
